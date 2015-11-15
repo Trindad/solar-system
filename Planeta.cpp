@@ -16,16 +16,50 @@ void Planeta::desenha(float deltaTempo)
 {
   rotacao += deltaTempo * grausPorSegundo;
 
-  if (rotacao > 360.0f)
+  while (rotacao > 360.0f)
   {
     rotacao -= 360.0f;
   }
 
   glPushMatrix();
 
-  glTranslatef(0,0,0);
-  glRotatef(rotacao, 0, 1, 0);
+  glTranslatef(posicao.f[0],posicao.f[1],posicao.f[2]);
+
+  if (temRotacao)
+  {
+    glRotatef(rotacao, 0, 1, 0);
+  }
+
+  // glTranslatef(-raio,-raio,0);
+
   gluSphere(gluNewQuadric(), raio, 32, 32);
 
+  // glBegin(GL_POLYGON);
+
+  // glColor3f(0,1,1);
+  // glVertex3f(0,0,0);
+  // glVertex3f(0,100,0);
+
+  // glColor3f(100,100,0);
+  // glVertex3f(100,0,0);
+  // glVertex3f(100,100,0);
+
+  // glEnd();
+
   glPopMatrix();
+}
+
+void Planeta::setPosicao(Vector3 pos)
+{
+  posicao = pos;
+}
+
+void Planeta::setGrausPorSegundo(float graus)
+{
+  grausPorSegundo = graus;
+}
+
+void Planeta::setTemRotacao(bool b)
+{
+  temRotacao = b;
 }

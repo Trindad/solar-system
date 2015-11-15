@@ -24,7 +24,14 @@ void init()
 {
 
 	Planeta sol(500);
+	sol.setPosicao(Vector3(0,0,150));
+	sol.setTemRotacao(false);
 	planetas.push_back(sol);
+
+	Planeta terra(200);
+	terra.setPosicao(Vector3(-800,0,0));
+	terra.setGrausPorSegundo(100);
+	planetas.push_back(terra);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClearDepth(1.0f);
@@ -81,15 +88,13 @@ void display(void)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0.01,5000,0,0,0,0,0,1,0);
+	gluLookAt(0.1,5000,0.1,0,0,0,0,1,0);
 
 	glColor3f(1.0, 1.0, 1.0);
 
 	float timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
-	float deltaTime = timeSinceStart - oldTimeSinceStart;
+	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000;
   oldTimeSinceStart = timeSinceStart;
-
-
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
@@ -97,6 +102,7 @@ void display(void)
 	}
 
 	glutSwapBuffers();
+	glutPostRedisplay();
 }
 
 

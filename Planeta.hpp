@@ -13,12 +13,15 @@ public:
 
   void desenha(float);
 
-  void setPosition(Vector3);
+  void setPosicao(Vector3);
+  void setGrausPorSegundo(float);
   void setTemOrbita(bool);
+  void setTemRotacao(bool);
   void setOrbita(Orbita);
 
   int raio;
   int temOrbita;
+  int temRotacao;
   Orbita orbita;
   GLfloat rotacao;
   Vector3 posicao;
