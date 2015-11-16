@@ -1,3 +1,6 @@
+#ifndef VECTOR3_H
+#define VECTOR3_H
+
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <math.h>
@@ -26,3 +29,5 @@ public:
 	Vector3 produtoExterno(const Vector3 &);
 	float produtoInterno(const Vector3 &);
 };
+
+#endif

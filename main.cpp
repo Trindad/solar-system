@@ -8,12 +8,11 @@
  * Alunos: Silvana Trindade e Maurício André Cinelli
  * *********************************************************
  */
-
-#include <GL/gl.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <vector>
 #include <iostream>
+
 #include "Planeta.hpp"
 using namespace std;
 
@@ -22,16 +21,45 @@ float oldTimeSinceStart = 0;
 
 void init()
 {
-
+	/**
+	 * Desenha corpos 
+	 * Inserindo o tamanho, posição 
+	 * e velocidade de rotação se rotacionar
+	 */
 	Planeta sol(500);
-	sol.setPosicao(Vector3(0,0,150));
+	sol.setPosicao(Vector3(0,0,0));
 	sol.setTemRotacao(false);
+	sol.setTemOrbita(false);
 	planetas.push_back(sol);
 
+	Planeta mercurio(80);
+	mercurio.setPosicao(Vector3(-1000,0,0));
+	mercurio.setGrausPorSegundo(100);
+	mercurio.setTemOrbita(true);
+	mercurio.setOrbita(new Orbita(80.0f, Vector3(0,0,0), 1000));
+	planetas.push_back(mercurio);
+
+	Planeta venus(190);
+	venus.setPosicao(Vector3(-1500,0,0));
+	venus.setGrausPorSegundo(100);
+	venus.setTemOrbita(true);
+	venus.setOrbita(new Orbita(65.0f, Vector3(0,0,0), 1500));
+	planetas.push_back(venus);
+
 	Planeta terra(200);
-	terra.setPosicao(Vector3(-800,0,0));
+	terra.setPosicao(Vector3(-2100,0,0));
 	terra.setGrausPorSegundo(100);
+	terra.setTemOrbita(true);
+	terra.setOrbita(new Orbita(55.0f, Vector3(0,0,0), 2100));
 	planetas.push_back(terra);
+
+
+	Planeta lua(50);
+	lua.setPosicao(Vector3(-2450,0,0));
+	lua.setGrausPorSegundo(100);
+	lua.setTemOrbita(true);
+	lua.setOrbita(new Orbita(55.0f, terra.posicao, 350));
+	planetas.push_back(lua);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClearDepth(1.0f);
@@ -67,6 +95,16 @@ void init()
 	glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// mudança de perspectiva são feitas em modo de projeção
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	// Define angulo de visão e o quão longo a câmera vê
+	gluPerspective(62, 1, 0.1f, 5000);
+
+	// para desenhar, devemos voltar ao modo do modelo
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 }
 
 /**
@@ -78,23 +116,13 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	// mudança de perspectiva são feitas em modo de projeção
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	// Define angulo de visão e o quão longo a câmera vê
-	gluPerspective(90, 1, 0.1, 5000);
-
-	// para desenhar, devemos voltar ao modo do modelo
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
 	gluLookAt(0.1,5000,0.1,0,0,0,0,1,0);
 
 	glColor3f(1.0, 1.0, 1.0);
 
 	float timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
 	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000;
-  oldTimeSinceStart = timeSinceStart;
+  	oldTimeSinceStart = timeSinceStart;
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
@@ -105,6 +133,22 @@ void display(void)
 	glutPostRedisplay();
 }
 
+/**
+ * Configurações da janela de visualização
+ */
+void reshape(int w, int h)
+{
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	float aspect = 1.0f*w/h;
+
+	gluPerspective (62,aspect,0.1f,5000.0f );
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
 
 int main ( int argc, char** argv )
 {
@@ -112,10 +156,10 @@ int main ( int argc, char** argv )
 
 	glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(600, 600 );
-
-	glutCreateWindow( "Bandeira" );
+	glutCreateWindow( "Sistema Solar" );
 	init();
 	glutDisplayFunc(display);
+	glutReshapeFunc(reshape);
 
 	glutMainLoop();
 }

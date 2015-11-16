@@ -23,7 +23,15 @@ void Planeta::desenha(float deltaTempo)
 
   glPushMatrix();
 
-  glTranslatef(posicao.f[0],posicao.f[1],posicao.f[2]);
+  if (temOrbita)
+  {
+    this->orbita->atualiza(deltaTempo);
+    glRotatef(this->orbita->getRotacao(), 0, 1, 0);
+    glTranslatef(this->orbita->getCentro().f[0] - this->orbita->getRaio(),posicao.f[1],posicao.f[2]);
+  } else
+  {
+    glTranslatef(posicao.f[0],posicao.f[1],posicao.f[2]);
+  }
 
   if (temRotacao)
   {
@@ -62,4 +70,14 @@ void Planeta::setGrausPorSegundo(float graus)
 void Planeta::setTemRotacao(bool b)
 {
   temRotacao = b;
+}
+
+void Planeta::setTemOrbita(bool b)
+{
+  temOrbita = b;
+}
+
+void Planeta::setOrbita(Orbita* o)
+{
+  orbita = o;
 }
