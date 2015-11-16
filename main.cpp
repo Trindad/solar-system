@@ -13,11 +13,14 @@
 #include <vector>
 #include <iostream>
 
+#include "Camera.hpp"
 #include "Planeta.hpp"
+
 using namespace std;
 
 vector<Planeta> planetas;
 float oldTimeSinceStart = 0;
+Camera deus;
 
 void init()
 {
@@ -116,7 +119,8 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	gluLookAt(0.1,5000,0.1,0,0,0,0,1,0);
+	deus.desenha();
+	// gluLookAt(0.1,5000,0.1,0,0,0,0,1,0);
 
 	glColor3f(1.0, 1.0, 1.0);
 
@@ -150,6 +154,20 @@ void reshape(int w, int h)
 	glLoadIdentity();
 }
 
+void mouse(int button, int state, int x, int y)
+{
+	// 3 rolou pra cima, 4 rolou pra baixo
+	if (button == 3 || button == 4)
+	{
+		if (state == GLUT_UP)
+		{
+			return;
+		}
+
+		deus.zoom(button == 3 ? 1 : -1); 
+	}
+}
+
 int main ( int argc, char** argv )
 {
 	glutInit( &argc, argv );
@@ -160,6 +178,7 @@ int main ( int argc, char** argv )
 	init();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
+	glutMouseFunc(mouse);
 
 	glutMainLoop();
 }
