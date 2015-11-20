@@ -6,6 +6,7 @@
 #include <math.h>
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 class Vector3 
 {

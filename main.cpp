@@ -24,6 +24,7 @@ Camera deus;
 
 void init()
 {
+
 	/**
 	 * Desenha corpos 
 	 * Inserindo o tamanho, posição 
@@ -108,6 +109,15 @@ void init()
 	// para desenhar, devemos voltar ao modo do modelo
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	glEnable(GL_TEXTURE_2D);
+	
+	planetas[0].loadTexture( "texture_sun.jpg" );//adicionando textura do sol
+  	planetas[1].loadTexture("texture_mercury.jpg");//adiciona textura para mercurio
+	planetas[2].loadTexture("texture_venus_surface.jpg");//adiciona textura para venus
+	planetas[3].loadTexture("texture_earth_clouds.jpg");//adiciona textura para terra
+	planetas[4].loadTexture("texture_moon.jpg");//adiciona textura para lua
+
 }
 
 /**

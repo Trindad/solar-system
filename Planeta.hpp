@@ -1,6 +1,5 @@
 #ifndef PLANETA_H
 #define PLANETA_H
-
 #include "Orbita.hpp"
 
 class Planeta
@@ -16,6 +15,7 @@ public:
   void setTemOrbita(bool);
   void setTemRotacao(bool);
   void setOrbita(Orbita*);
+  void loadTexture(const char*);
 
   int raio;
   int temOrbita;
@@ -24,6 +24,7 @@ public:
   GLfloat rotacao;
   Vector3 posicao;
   GLfloat grausPorSegundo;
+  GLuint texture;
 };
 
 #endif

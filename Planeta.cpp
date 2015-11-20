@@ -1,7 +1,6 @@
 #include "Planeta.hpp"
-#include <GL/gl.h>
-#include <GL/glut.h>
-#include <iostream>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 Planeta::Planeta(int r)
 {
@@ -14,6 +13,7 @@ Planeta::~Planeta()
 
 void Planeta::desenha(float deltaTempo)
 {
+  glBindTexture (GL_TEXTURE_2D, this->texture);
   rotacao += deltaTempo * grausPorSegundo;
 
   while (rotacao > 360.0f)
@@ -39,8 +39,17 @@ void Planeta::desenha(float deltaTempo)
   }
 
   // glTranslatef(-raio,-raio,0);
+  GLUquadricObj  *esfera = gluNewQuadric();
 
-  gluSphere(gluNewQuadric(), raio, 32, 32);
+  /**
+   * Ativando textura da esfera
+   */
+  gluQuadricDrawStyle(esfera,GLU_FILL);
+  gluQuadricNormals(esfera,GLU_SMOOTH);
+  gluQuadricOrientation(esfera,GLU_OUTSIDE);
+  gluQuadricTexture(esfera,GL_TRUE);
+
+  gluSphere(esfera, raio, 32, 32);
 
   // glBegin(GL_POLYGON);
 
@@ -80,4 +89,29 @@ void Planeta::setTemOrbita(bool b)
 void Planeta::setOrbita(Orbita* o)
 {
   orbita = o;
+}
+
+
+void Planeta::loadTexture(const char* filename)
+{
+  GLuint t;
+  glGenTextures(1, &t);
+  this->texture = t;
+  glBindTexture(GL_TEXTURE_2D, texture);
+
+  int width = 0, height = 0;
+  int n = 0;
+
+  unsigned char* image = stbi_load(filename,&width,&height,&n,0);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+              GL_UNSIGNED_BYTE, image);
+
+
+   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE , GL_MODULATE);
+   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+   glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+   gluBuild2DMipmaps(GL_TEXTURE_2D,3, width, height, GL_RGB, GL_UNSIGNED_BYTE, image);
 }
