@@ -26,8 +26,8 @@ void init()
 {
 
 	/**
-	 * Desenha corpos 
-	 * Inserindo o tamanho, posição 
+	 * Desenha corpos
+	 * Inserindo o tamanho, posição
 	 * e velocidade de rotação se rotacionar
 	 */
 	Planeta sol(500);
@@ -40,29 +40,29 @@ void init()
 	mercurio.setPosicao(Vector3(-1000,0,0));
 	mercurio.setGrausPorSegundo(100);
 	mercurio.setTemOrbita(true);
-	mercurio.setOrbita(new Orbita(80.0f, Vector3(0,0,0), 1000));
+	mercurio.setOrbita(new Orbita(38.0f, Vector3(0,0,0), 1000));
 	planetas.push_back(mercurio);
 
 	Planeta venus(190);
 	venus.setPosicao(Vector3(-1500,0,0));
 	venus.setGrausPorSegundo(100);
 	venus.setTemOrbita(true);
-	venus.setOrbita(new Orbita(65.0f, Vector3(0,0,0), 1500));
+	venus.setOrbita(new Orbita(25.0f, Vector3(0,0,0), 1500));
 	planetas.push_back(venus);
 
 	Planeta terra(200);
 	terra.setPosicao(Vector3(-2100,0,0));
-	terra.setGrausPorSegundo(100);
+	terra.setGrausPorSegundo(20);
 	terra.setTemOrbita(true);
-	terra.setOrbita(new Orbita(55.0f, Vector3(0,0,0), 2100));
+	terra.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 2100));
 	planetas.push_back(terra);
 
 
 	Planeta lua(50);
 	lua.setPosicao(Vector3(-2450,0,0));
-	lua.setGrausPorSegundo(100);
+	lua.setGrausPorSegundo(5);
 	lua.setTemOrbita(true);
-	lua.setOrbita(new Orbita(55.0f, terra.posicao, 350));
+	lua.setOrbita(new Orbita(15.0f, terra.posicao, 350));
 	planetas.push_back(lua);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -111,7 +111,7 @@ void init()
 	glLoadIdentity();
 
 	glEnable(GL_TEXTURE_2D);
-	
+
 	planetas[0].loadTexture( "texture_sun.jpg" );//adicionando textura do sol
   	planetas[1].loadTexture("texture_mercury.jpg");//adiciona textura para mercurio
 	planetas[2].loadTexture("texture_venus_surface.jpg");//adiciona textura para venus
@@ -158,7 +158,7 @@ void reshape(int w, int h)
 
 	float aspect = 1.0f*w/h;
 
-	gluPerspective (62,aspect,200.0f,5000.0f );
+	gluPerspective (50,aspect,200.0f,5000.0f );
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -174,7 +174,7 @@ void mouse(int button, int state, int x, int y)
 			return;
 		}
 
-		deus.zoom(button == 3 ? 1 : -1); 
+		deus.zoom(button == 3 ? -1 : 1);
 	}
 }
 

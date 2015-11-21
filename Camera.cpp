@@ -10,9 +10,17 @@ Camera::~Camera(){}
 /**
  * Aumenta ou diminui o zoom da câmera
  */
-void Camera::zoom(int pos) 
+void Camera::zoom(int pos)
 {
 	this->posicao = this->posicao + Vector3(0,pos*80,0);
+
+  if (this->posicao.f[1] < 1500) {
+    this->posicao.f[1] = 1500;
+  }
+
+  if (this->posicao.f[1] > 5000) {
+    this->posicao.f[1] = 5000;
+  }
 }
 
 void Camera::desenha()
