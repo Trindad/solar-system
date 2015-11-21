@@ -12,7 +12,7 @@ Camera::~Camera(){}
  */
 void Camera::zoom(int pos) 
 {
-	this->posicao = this->posicao + Vector3(0,pos*20,0);
+	this->posicao = this->posicao + Vector3(0,pos*80,0);
 }
 
 void Camera::desenha()
