@@ -174,7 +174,7 @@ void mouse(int button, int state, int x, int y)
 			return;
 		}
 
-		deus.zoom(button == 3 ? -1 : 1);
+		deus.zoom(button == 3 ? -1 : 1,x,y);
 	}
 }
 
