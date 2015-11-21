@@ -8,12 +8,12 @@ class Camera
 public:
 	Camera();
 	~Camera();
-	void zoom(int,int,int); 
+	void zoom(int,int,int);
 	void desenha();
 private:
 	Vector3 posicao;//posição da câmera
-	int lookAtX;
-	int lookAtY;
+	float lookAtX;
+	float lookAtZ;
 };
 
 #endif
