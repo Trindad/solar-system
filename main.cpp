@@ -75,19 +75,9 @@ void init()
 	glEnable(GL_COLOR_MATERIAL);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
-	glEnable(GL_LIGHT0);
-	GLfloat lightPos[4] = {-1.0,1.0,0.5,0.0};
-	glLightfv(GL_LIGHT0,GL_POSITION,(GLfloat *) &lightPos);
-
 	glEnable(GL_LIGHT1);
 
-	GLfloat lightAmbient1[4] = {0.0,0.0,0.0,0.0};
-	GLfloat lightPos1[4] = {1.0,0.0,-0.2,0.0};
-	GLfloat lightDiffuse1[4] = {0.5,0.5,0.3,0.0};
 
-	glLightfv(GL_LIGHT1,GL_POSITION,(GLfloat *) &lightPos1);
-	glLightfv(GL_LIGHT1,GL_AMBIENT,(GLfloat *) &lightAmbient1);
-	glLightfv(GL_LIGHT1,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
 
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
 	glEnable(GL_LIGHTING);
@@ -138,6 +128,14 @@ void display(void)
 		cameraNave.desenha();
 	}
 
+	GLfloat lightAmbient1[4] = {0.0,0.0,0.0,0.0};
+	GLfloat lightPos1[4] = {0,0.0,0,1};
+	GLfloat lightDiffuse1[4] = {0.8,0.8,0.8,1};
+
+	glLightfv(GL_LIGHT1,GL_POSITION,(GLfloat *) &lightPos1);
+	glLightfv(GL_LIGHT1,GL_AMBIENT,(GLfloat *) &lightAmbient1);
+	glLightfv(GL_LIGHT1,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
+
 	glColor3f(1.0, 1.0, 1.0);
 
 	float timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
@@ -146,6 +144,17 @@ void display(void)
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
+		if (i > 0) {
+			GLfloat di[] = {0.5, 0.5, 0.5, 1.0};
+			GLfloat ai[] = {0, 0, 0, 0.0};
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
+		} else {
+			GLfloat di[] = {1, 1, 1, 1.0};
+			GLfloat ai[] = {1, 1, 1, 1.0};
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
+		}
 		planetas[i].desenha(deltaTime);
 	}
 
@@ -227,10 +236,10 @@ void keyboard(unsigned char key, int x, int y)
 			case 119://para cima
 				cameraNave.rotacionaParaCima();
 				break;
-			case 97://para esquerda 
+			case 97://para esquerda
 				cameraNave.rotacionaParaEsquerda();
 				break;
-			case 100://para direita 
+			case 100://para direita
 				cameraNave.rotacionaParaDireita();
 				break;
 			default :
