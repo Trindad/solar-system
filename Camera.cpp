@@ -5,7 +5,7 @@ Camera::Camera(Vector3 pos)
 	this->posicao = pos;//inicializa câmera
 	this->lookAt = Vector3(0,0,0);
 	this->up = Vector3(0,1,0);
-	this->dir = this->lookAt - this->posicao;
+	this->dir = (this->lookAt - this->posicao).normalizado();
 }
 
 Camera::~Camera(){}
@@ -62,4 +62,71 @@ void Camera::moveDireita()
 {
 	this->posicao += (dir.produtoExterno(up)*0.05f);
 	this->lookAt = posicao + dir;
+}
+
+
+void Camera::rotacionaParaCima()
+{
+	Vector3 t = dir.produtoExterno(up);
+
+	dir = rotacionaVetor(dir,t,-1.0f);//rotaciona 1 graus
+	up = rotacionaVetor(up,t,-1.0f);//rotaciona 1 graus
+
+	this->lookAt = posicao + dir;
+}
+
+void Camera::rotacionaParaEsquerda()
+{
+	Vector3 t = dir.produtoExterno(up);
+
+	dir = rotacionaVetor(dir,t,-1.0f);//rotaciona 1 graus
+	up = rotacionaVetor(up,t,-1.0f);//rotaciona 1 graus
+
+	this->lookAt = posicao + dir;
+}
+
+void Camera::rotacionaParaDireita()
+{
+	Vector3 t = dir.produtoExterno(up);
+
+	dir = rotacionaVetor(dir,t,-1.0f);//rotaciona 1 graus
+	up = rotacionaVetor(up,t,-1.0f);//rotaciona 1 graus
+
+	this->lookAt = posicao + dir;
+}
+
+
+
+
+void Camera::rotacionaParaBaixo()
+{
+	Vector3 t = dir.produtoExterno(up);
+
+	dir = rotacionaVetor(dir,t,1.0f);//rotaciona 1 graus
+	up = rotacionaVetor(up,t,1.0f);//rotaciona 1 graus
+
+	this->lookAt = posicao + dir;
+}
+
+/**
+ * Rotaciona vetor (ux, uy, uz) em torno (vx, vy, vz) por "angulo"
+ */
+Vector3 Camera::rotacionaVetor(Vector3 u, Vector3 v, float graus) {
+  
+  float angulo = graus * PI/180.0f;//transforma de graus para radianos
+
+  float ca = cos(angulo);
+  float sa = sin(angulo);
+
+  Vector3 cross = u.produtoExterno(v);
+
+  float dot = u.produtoInterno(v);
+
+  Vector3 novo;
+
+  novo.f[0] = u.f[0]*ca + cross.f[0]*sa + dot*v.f[0]*(1-ca);
+  novo.f[1] = u.f[1]*ca + cross.f[1]*sa + dot*v.f[1]*(1-ca);
+  novo.f[2] = u.f[2]*ca + cross.f[2]*sa + dot*v.f[2]*(1-ca);
+
+  return novo;
 }

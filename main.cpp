@@ -215,6 +215,25 @@ void keyboard(unsigned char key, int x, int y)
 	{
 		modoDeus = !modoDeus;
 	}
+	else
+	{
+		switch(key) {
+			case 115://para baixo
+				cameraNave.rotacionaParaBaixo();
+				break;
+			case 119://para cima
+				cameraNave.rotacionaParaCima();
+				break;
+			case 97://para esquerda 
+				cameraNave.rotacionaParaEsquerda();
+				break;
+			case 100://para direita 
+				cameraNave.rotacionaParaDireita();
+				break;
+			default :
+				break;
+		}
+	}
 }
 
 void specialKeyboard(int key, int x, int y)
@@ -224,7 +243,6 @@ void specialKeyboard(int key, int x, int y)
 	} else {
 		switch(key) {
 			case GLUT_KEY_UP:
-				cout<<"Come on :("<<endl;
 				cameraNave.moveFrente();
 				break;
 			case GLUT_KEY_LEFT:

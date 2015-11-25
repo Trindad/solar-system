@@ -8,6 +8,8 @@
 #include <iostream>
 #include <fstream>
 
+#define PI 3.14159265//usado para rotação
+
 class Vector3 
 {
 public:

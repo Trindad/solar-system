@@ -13,6 +13,11 @@ public:
 	void moveFrente();
 	void moveEsquerda();
 	void moveDireita();
+	void rotacionaParaBaixo();
+	void rotacionaParaCima();
+	void rotacionaParaEsquerda();
+	void rotacionaParaDireita();
+	Vector3 rotacionaVetor(Vector3, Vector3, float);
 private:
 	Vector3 posicao;//posição da câmera
 	Vector3 lookAt;
