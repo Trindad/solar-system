@@ -64,6 +64,21 @@ void Camera::moveDireita()
 	this->lookAt = posicao + dir;
 }
 
+void Camera::rotacionaParaEsquerda()
+{
+
+	dir = rotacionaVetor(dir,up,-1.0f);//rotaciona 1 graus
+
+	this->lookAt = posicao + dir;
+}
+
+void Camera::rotacionaParaDireita()
+{
+	dir = rotacionaVetor(dir,up,1.0f);//rotaciona 1 graus
+
+	this->lookAt = posicao + dir;
+}
+
 
 void Camera::rotacionaParaCima()
 {
@@ -74,28 +89,6 @@ void Camera::rotacionaParaCima()
 
 	this->lookAt = posicao + dir;
 }
-
-void Camera::rotacionaParaEsquerda()
-{
-	Vector3 t = dir.produtoExterno(up);
-
-	dir = rotacionaVetor(dir,t,-1.0f);//rotaciona 1 graus
-	up = rotacionaVetor(up,t,-1.0f);//rotaciona 1 graus
-
-	this->lookAt = posicao + dir;
-}
-
-void Camera::rotacionaParaDireita()
-{
-	Vector3 t = dir.produtoExterno(up);
-
-	dir = rotacionaVetor(dir,t,-1.0f);//rotaciona 1 graus
-	up = rotacionaVetor(up,t,-1.0f);//rotaciona 1 graus
-
-	this->lookAt = posicao + dir;
-}
-
-
 
 
 void Camera::rotacionaParaBaixo()
