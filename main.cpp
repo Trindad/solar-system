@@ -239,7 +239,7 @@ void keyboard(unsigned char key, int x, int y)
 void specialKeyboard(int key, int x, int y)
 {
 	if (modoDeus) {
-
+		return;
 	} else {
 		switch(key) {
 			case GLUT_KEY_UP:

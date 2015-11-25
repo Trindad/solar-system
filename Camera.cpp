@@ -48,19 +48,19 @@ void Camera::desenha()
 
 void Camera::moveFrente()
 {
-	this->posicao += dir * 0.05f;
+	this->posicao += dir * 8.0f;
 	this->lookAt = posicao + dir;
 }
 
 void Camera::moveEsquerda()
 {
-	this->posicao = this->posicao - dir.produtoExterno(up)*0.05f;
+	this->posicao = this->posicao - dir.produtoExterno(up)*8.0f;
 	this->lookAt = posicao + dir;
 }
 
 void Camera::moveDireita()
 {
-	this->posicao += (dir.produtoExterno(up)*0.05f);
+	this->posicao += (dir.produtoExterno(up)*8.0f);
 	this->lookAt = posicao + dir;
 }
 
