@@ -15,10 +15,12 @@
 
 #include "Camera.hpp"
 #include "Planeta.hpp"
+#include "Galaxia.hpp"
 
 using namespace std;
 
 vector<Planeta> planetas;
+Galaxia galaxia(10000);
 float oldTimeSinceStart = 0;
 Camera deus(Vector3(0.1,5000,0.1));
 Camera cameraNave(Vector3(1200,0,1200));
@@ -26,7 +28,6 @@ bool modoDeus = true;
 
 void init()
 {
-
 	/**
 	 * Desenha corpos
 	 * Inserindo o tamanho, posição
@@ -106,7 +107,7 @@ void init()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	// Define angulo de visão e o quão longo a câmera vê
-	gluPerspective(50, 1, 200.0f, 5000);
+	gluPerspective(50, 1, 200.0f, 15000);
 
 	// para desenhar, devemos voltar ao modo do modelo
 	glMatrixMode(GL_MODELVIEW);
@@ -119,7 +120,7 @@ void init()
 	planetas[2].loadTexture("texture_venus_surface.jpg");//adiciona textura para venus
 	planetas[3].loadTexture("texture_earth_clouds.jpg");//adiciona textura para terra
 	planetas[4].loadTexture("texture_moon.jpg");//adiciona textura para lua
-
+	galaxia.loadTexture("galaxia.jpg");//adiciona textura a galaxia
 }
 
 /**
@@ -148,6 +149,8 @@ void display(void)
 		planetas[i].desenha(deltaTime);
 	}
 
+	galaxia.desenha();
+
 	glutSwapBuffers();
 	glutPostRedisplay();
 }
@@ -163,7 +166,7 @@ void reshape(int w, int h)
 
 	float aspect = 1.0f*w/h;
 
-	gluPerspective (50,aspect,200.0f,5000.0f );
+	gluPerspective (50,aspect,200.0f,15000.0f );
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

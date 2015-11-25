@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include "Textura.hpp"
 
 #define PI 3.14159265//usado para rotação
 
