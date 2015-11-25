@@ -20,7 +20,9 @@ using namespace std;
 
 vector<Planeta> planetas;
 float oldTimeSinceStart = 0;
-Camera deus;
+Camera deus(Vector3(0.1,5000,0.1));
+Camera cameraNave(Vector3(1200,0,1200));
+bool modoDeus = true;
 
 void init()
 {
@@ -129,7 +131,11 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	deus.desenha();
+	if (modoDeus) {
+		deus.desenha();
+	} else {
+		cameraNave.desenha();
+	}
 
 	glColor3f(1.0, 1.0, 1.0);
 
@@ -176,7 +182,7 @@ Vector3 retornaCoordenadasMundo(int x, int y)
 	glGetDoublev(GL_PROJECTION_MATRIX, projection);
 
 	winX = (float)x;
-  winY = (float)viewport[3] - (float)y;
+    winY = (float)viewport[3] - (float)y;
 
 	glReadPixels(winX, winY, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &winZ);
 	gluUnProject( winX, winY, winZ, modelview, projection, viewport, &posX, &posY, &posZ);
@@ -189,7 +195,7 @@ void mouse(int button, int state, int x, int y)
 	// 3 rolou pra cima, 4 rolou pra baixo
 	if (button == 3 || button == 4)
 	{
-		if (state == GLUT_UP)
+		if (state == GLUT_UP || !modoDeus)
 		{
 			return;
 		}
@@ -203,6 +209,36 @@ void mouse(int button, int state, int x, int y)
 	}
 }
 
+void keyboard(unsigned char key, int x, int y)
+{
+	if (key == 99)
+	{
+		modoDeus = !modoDeus;
+	}
+}
+
+void specialKeyboard(int key, int x, int y)
+{
+	if (modoDeus) {
+
+	} else {
+		switch(key) {
+			case GLUT_KEY_UP:
+				cout<<"Come on :("<<endl;
+				cameraNave.moveFrente();
+				break;
+			case GLUT_KEY_LEFT:
+				cameraNave.moveEsquerda();
+				break;
+			case GLUT_KEY_RIGHT:
+				cameraNave.moveDireita();
+				break;
+		}
+	}
+
+	glutPostRedisplay();
+}
+
 int main ( int argc, char** argv )
 {
 	glutInit( &argc, argv );
@@ -214,6 +250,8 @@ int main ( int argc, char** argv )
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutMouseFunc(mouse);
+	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(specialKeyboard);
 
 	glutMainLoop();
 }
