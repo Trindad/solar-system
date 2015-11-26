@@ -8,6 +8,7 @@
  * Alunos: Silvana Trindade e Maurício André Cinelli
  * *********************************************************
  */
+#include <GL/glew.h>
 #include <GL/glut.h>
 #include <math.h>
 #include <vector>
@@ -271,7 +272,19 @@ void specialKeyboard(int key, int x, int y)
 
 int main ( int argc, char** argv )
 {
+
 	glutInit( &argc, argv );
+    glewInit();
+ 
+    if (glewIsSupported("GL_VERSION_3_3"))
+    {
+        printf("Ready for OpenGL 3.3\n");
+    }
+    else 
+    {
+        printf("OpenGL 3.3 not supported\n");
+        exit(1);
+    }
 
 	glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(600, 600 );
