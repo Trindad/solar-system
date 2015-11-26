@@ -69,7 +69,7 @@ int textFileWrite(char *fn, char *s) {
 		fp = fopen(fn,"w");
 
 		if (fp != NULL) {
-			
+
 			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
 				status = 1;
 			fclose(fp);
@@ -85,7 +85,7 @@ void setShaders() {
 	char *vs,*fs;
 
 	v = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
-	f = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);	
+	f = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
 
 	string s = "shader.vert";
 	vs = textFileRead(s.c_str());
@@ -163,10 +163,10 @@ void init()
 
 	// glEnable(GL_LIGHT0);
 	// GLfloat lightAmbient1[4] = {0.0,0.0,0.0,0.0};
-	
+
 	// GLfloat lightDiffuse1[4] = {0.5,0.5,0.5,1};
 
-	
+
 	// glLightfv(GL_LIGHT0,GL_AMBIENT,(GLfloat *) &lightAmbient1);
 	// glLightfv(GL_LIGHT0,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
 
@@ -239,7 +239,7 @@ void display(void)
 		// 	GLfloat ai[] = {0, 0, 0, 0.0};
 		// 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 		// 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
-		// } 
+		// }
 		// else {
 		// 	GLfloat di[] = {1, 1, 1, 1.0};
 		// 	GLfloat ai[] = {1, 1, 1, 1.0};
@@ -363,7 +363,7 @@ void specialKeyboard(int key, int x, int y)
 int main ( int argc, char** argv )
 {
 	glutInit( &argc, argv );
- 
+
 	glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(700, 700 );
 	glutCreateWindow( "Sistema Solar" );
