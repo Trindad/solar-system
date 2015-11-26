@@ -17,13 +17,16 @@
 #include "Camera.hpp"
 #include "Planeta.hpp"
 #include "Galaxia.hpp"
+#include "Anel.hpp"
 
 using namespace std;
 
 vector<Planeta> planetas;
-Galaxia galaxia(10000);
+Galaxia galaxia(10000);//insere textura na galaxia
+Anel anelDeSaturno(80, 300);//anel de saturno entra com o raio interno e externo do torus
 float oldTimeSinceStart = 0;
-Camera deus(Vector3(0.1,8000,0.1));
+// Camera deus(Vector3(0.1,8000,0.1));
+Camera deus(Vector3(-4000,500,0.1));
 Camera cameraNave(Vector3(1800,0,1800));
 bool modoDeus = true;
 
@@ -87,10 +90,15 @@ void init()
 
 	Planeta saturno((116438*1200)/1391900);
 	saturno.setPosicao(Vector3(-4000,0,0));
-	saturno.setGrausPorSegundo(20);
-	saturno.setTemOrbita(true);
-	saturno.setOrbita(new Orbita(142700*orbita, Vector3(0,0,0), 4000));
+	saturno.setGrausPorSegundo(0);
+	saturno.setTemOrbita(false);//142700*orbita
+	saturno.setOrbita(new Orbita(0, Vector3(0,0,0), 4000));
 	planetas.push_back(saturno);
+
+	anelDeSaturno.setPosicao(Vector3(-4000,0,0));
+	anelDeSaturno.setGrausPorSegundo(0);
+	anelDeSaturno.setTemOrbita(false);//142700*orbita
+	anelDeSaturno.setOrbita(new Orbita(0, Vector3(0,0,0), 4000));
 
 	Planeta uranus((46940*1200)/1391900);
 	uranus.setPosicao(Vector3(-4500,0,0));
@@ -154,7 +162,7 @@ void init()
 	planetas[7].loadTexture("texture_saturn.jpg");//adiciona textura para saturno
 	planetas[8].loadTexture("texture_uranus.jpg");//adiciona textura para uranu
 	planetas[9].loadTexture("texture_neptune.jpg");//adiciona textura para Neturno
-
+	anelDeSaturno.loadTexture("texture_saturn_ring.png");//anel de saturno
 	galaxia.loadTexture("galaxia.jpg");//adiciona textura a galaxia
 }
 
@@ -208,6 +216,14 @@ void display(void)
 	}
 
 	galaxia.desenha();
+
+	//Configurações do anel
+	GLfloat confAnel[][3] = {
+					{400.0f,0.0f,0.0f},//posição
+					{400.0f,0.0f,0.0f},//rotação
+					{0.3f,0.3f,0.03f}//escala
+					};
+	anelDeSaturno.desenha(confAnel[2],deltaTime);
 
 	glutSwapBuffers();
 	glutPostRedisplay();

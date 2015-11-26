@@ -17,7 +17,7 @@
 
 #include "Textura.hpp"
 
-#define PI 3.14159265//usado para rotação
+#define PI 3.1415926535897932384626433832795//usado para rotação
 
 class Vector3 
 {
