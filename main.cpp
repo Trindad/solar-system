@@ -27,6 +27,8 @@ Camera deus(Vector3(0.1,8000,0.1));
 Camera cameraNave(Vector3(1800,0,1800));
 bool modoDeus = true;
 
+float orbita = 1.0f/10000.0f;
+
 void init()
 {
 	/**
@@ -34,31 +36,31 @@ void init()
 	 * Inserindo o tamanho, posição
 	 * e velocidade de rotação se rotacionar
 	 */
-	Planeta sol(1200);
+	Planeta sol(1200);//tamanho real 1391900 km (diam)
 	sol.setPosicao(Vector3(0,0,0));
 	sol.setTemRotacao(false);
 	sol.setTemOrbita(false);
 	planetas.push_back(sol);
 
-	Planeta mercurio(50);
+	Planeta mercurio( (4866*1200)/1391900);
 	mercurio.setPosicao(Vector3(-1500,0,0));
-	mercurio.setGrausPorSegundo(100);
+	mercurio.setGrausPorSegundo(20);
 	mercurio.setTemOrbita(true);
-	mercurio.setOrbita(new Orbita(38.0f, Vector3(0,0,0), 1500));
+	mercurio.setOrbita(new Orbita(5795*orbita, Vector3(0,0,0), 1500));
 	planetas.push_back(mercurio);
 
-	Planeta venus(110);
+	Planeta venus((12106*1200)/1391900);
 	venus.setPosicao(Vector3(-1500,0,0));
-	venus.setGrausPorSegundo(100);
+	venus.setGrausPorSegundo(20);
 	venus.setTemOrbita(true);
-	venus.setOrbita(new Orbita(25.0f, Vector3(0,0,0), 1700));
+	venus.setOrbita(new Orbita(10811*orbita, Vector3(0,0,0), 1700));
 	planetas.push_back(venus);
 
-	Planeta terra(120);
+	Planeta terra((12742*1200)/1391900);
 	terra.setPosicao(Vector3(-2100,0,0));
 	terra.setGrausPorSegundo(20);
 	terra.setTemOrbita(true);
-	terra.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 2100));
+	terra.setOrbita(new Orbita(14957*orbita, Vector3(0,0,0), 2100));
 	planetas.push_back(terra);
 
 
@@ -66,42 +68,42 @@ void init()
 	lua.setPosicao(Vector3(-2250,0,0));
 	lua.setGrausPorSegundo(20);
 	lua.setTemOrbita(true);
-	lua.setOrbita(new Orbita(15.0f, terra.posicao, 250));
+	lua.setOrbita(new Orbita(14957*orbita, terra.posicao, 250));
 	planetas.push_back(lua);
 
-	Planeta marte(115);
+	Planeta marte((6760*1200)/1391900);
 	marte.setPosicao(Vector3(-2900,0,0));
 	marte.setGrausPorSegundo(20);
 	marte.setTemOrbita(true);
-	marte.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 2900));
+	marte.setOrbita(new Orbita(22784*orbita, Vector3(0,0,0), 2900));
 	planetas.push_back(marte);
 
-	Planeta jupiter(250);
+	Planeta jupiter((142984*1200)/1391900);
 	jupiter.setPosicao(Vector3(-3500,0,0));
 	jupiter.setGrausPorSegundo(20);
 	jupiter.setTemOrbita(true);
-	jupiter.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 3500));
+	jupiter.setOrbita(new Orbita(77814*orbita, Vector3(0,0,0), 3500));
 	planetas.push_back(jupiter);
 
-	Planeta saturno(160);
+	Planeta saturno((116438*1200)/1391900);
 	saturno.setPosicao(Vector3(-4000,0,0));
 	saturno.setGrausPorSegundo(20);
 	saturno.setTemOrbita(true);
-	saturno.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 4000));
+	saturno.setOrbita(new Orbita(142700*orbita, Vector3(0,0,0), 4000));
 	planetas.push_back(saturno);
 
-	Planeta uranus(115);
+	Planeta uranus((46940*1200)/1391900);
 	uranus.setPosicao(Vector3(-4500,0,0));
 	uranus.setGrausPorSegundo(20);
 	uranus.setTemOrbita(true);
-	uranus.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 4500));
+	uranus.setOrbita(new Orbita(287030*orbita, Vector3(0,0,0), 4500));
 	planetas.push_back(uranus);
 
-	Planeta neturno(115);
+	Planeta neturno((45432*1200)/1391900);
 	neturno.setPosicao(Vector3(-5000,0,0));
 	neturno.setGrausPorSegundo(20);
 	neturno.setTemOrbita(true);
-	neturno.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 5000));
+	neturno.setOrbita(new Orbita(449990*orbita, Vector3(0,0,0), 5000));
 	planetas.push_back(neturno);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
