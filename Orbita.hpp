@@ -12,6 +12,7 @@ public:
 	float getRaio();
 	GLfloat getRotacao();
 	void atualiza(float deltaTempo);
+  void desenha();
 private:
 	float grausPorSegundo;//velocidade da rotação
 	Vector3 centro;//ponto de rotação

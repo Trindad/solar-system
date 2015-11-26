@@ -19,6 +19,11 @@ void Planeta::desenha(float deltaTempo)
     rotacao -= 360.0f;
   }
 
+  if (temOrbita)
+  {
+    orbita->desenha();
+  }
+
   glPushMatrix();
 
   if (temOrbita)
@@ -26,6 +31,7 @@ void Planeta::desenha(float deltaTempo)
     this->orbita->atualiza(deltaTempo);
     glRotatef(this->orbita->getRotacao(), 0, 1, 0);
     glTranslatef(this->orbita->getCentro().f[0] - this->orbita->getRaio(),posicao.f[1],posicao.f[2]);
+
   } else
   {
     glTranslatef(posicao.f[0],posicao.f[1],posicao.f[2]);
@@ -35,7 +41,7 @@ void Planeta::desenha(float deltaTempo)
   {
     glRotatef(rotacao, 0, 1, 0);
   }
-  
+
   GLUquadricObj  *esfera = gluNewQuadric();
 
   /**

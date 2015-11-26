@@ -7,7 +7,7 @@
  * Inicializa variáveis
  */
 Orbita::Orbita(float g, Vector3 c, float r)
-{ 
+{
 	this->grausPorSegundo = g;
 	this->centro = c;
 	this->raio = r;
@@ -40,4 +40,27 @@ float Orbita::getRaio()
 GLfloat Orbita::getRotacao()
 {
 	return rotacao;
+}
+
+void Orbita::desenha()
+{
+   int i;
+
+   glPushMatrix();
+   glDisable(GL_LIGHTING);
+   glBegin(GL_LINE_LOOP);
+   glColor3f(1,1,1);
+
+   float degInRad = PI/180.0f;
+
+   for(i=0;i<360;i++)
+   {
+      float rad = i*(PI/180.0f);
+      glVertex3f(raio*cos(rad),0, raio*sin(rad));
+      // glVertex3f(raio*cos(rad),0, raio*sin(rad));
+   }
+
+   glEnd();
+   glPopMatrix();
+   glEnable(GL_LIGHTING);
 }

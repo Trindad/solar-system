@@ -17,12 +17,14 @@
 
 #include "Textura.hpp"
 
-#define PI 3.1415926535897932384626433832795//usado para rotação
+using namespace std;
 
-class Vector3 
+#define PI 3.14159265//usado para rotação
+
+class Vector3
 {
 public:
-	
+
 	float f[3];
 
 	Vector3(float, float, float);
@@ -37,7 +39,7 @@ public:
 	Vector3 operator+ (const Vector3 &);
 	Vector3 operator* (const float &);
 	Vector3 operator-();
-	
+
 	Vector3 produtoExterno(const Vector3 &);
 	float produtoInterno(const Vector3 &);
 };
