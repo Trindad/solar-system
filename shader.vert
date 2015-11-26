@@ -6,7 +6,7 @@ void main()
     vec3 aux;
 
     /* first transform the normal into eye space and normalize the result */
-    normal = normalize(gl_Normal);
+    normal = normalize(gl_NormalMatrix * gl_Normal);
 
     /* compute the vertex position  in camera space. */
     ecPos = gl_ModelViewMatrix * gl_Vertex;

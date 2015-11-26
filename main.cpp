@@ -220,8 +220,8 @@ void display(void)
 		cameraNave.desenha();
 	}
 
-	// GLfloat lightPos1[4] = {0,0.0,0,1.0f};
-	// glLightfv(GL_LIGHT0,GL_POSITION,(GLfloat *) &lightPos1);
+	GLfloat lightPos1[4] = {0,0.0,0,1.0f};
+	glLightfv(GL_LIGHT0,GL_POSITION,(GLfloat *) &lightPos1);
 
 	glColor3f(1.0, 1.0, 1.0);
 
@@ -230,22 +230,21 @@ void display(void)
   	oldTimeSinceStart = timeSinceStart;
 
   	int n = (int) planetas.size(), i = 0;
-  	glLightfv(GL_LIGHT0, GL_POSITION, lpos);
 
 	for (i = 0; i < n; i++)
 	{
-		// if (i > 0) {
-		// 	GLfloat di[] = {0.5, 0.5, 0.5, 1.0};
-		// 	GLfloat ai[] = {0, 0, 0, 0.0};
-		// 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
-		// 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
-		// }
-		// else {
-		// 	GLfloat di[] = {1, 1, 1, 1.0};
-		// 	GLfloat ai[] = {1, 1, 1, 1.0};
-		// 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
-		// 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
-		// }
+		if (i > 0) {
+			GLfloat di[] = {0.5, 0.5, 0.5, 1.0};
+			GLfloat ai[] = {0, 0, 0, 0.0};
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
+		}
+		else {
+			GLfloat di[] = {1, 1, 1, 1.0};
+			GLfloat ai[] = {1, 1, 1, 1.0};
+			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
+		}
 		planetas[i].desenha(deltaTime);
 	}
 
