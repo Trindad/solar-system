@@ -23,94 +23,9 @@ using namespace std;
 vector<Planeta> planetas;
 Galaxia galaxia(10000);
 float oldTimeSinceStart = 0;
-Camera deus(Vector3(0.1,5000,0.1));
-Camera cameraNave(Vector3(1200,0,1200));
+Camera deus(Vector3(0.1,8000,0.1));
+Camera cameraNave(Vector3(1800,0,1800));
 bool modoDeus = true;
-
-GLhandleARB v,f,f2,p;
-float lpos[4] = {0,0.0,0,0};
-
-char *textFileRead(const char *fn) {
-
-
-	FILE *fp;
-	char *content = NULL;
-
-	int f,count;
-	f = open(fn, O_RDONLY);
-
-	count = lseek(f, 0, SEEK_END);
-
-	close(f);
-
-	if (fn != NULL) {
-		fp = fopen(fn,"rt");
-
-		if (fp != NULL) {
-
-
-			if (count > 0) {
-				content = (char *)malloc(sizeof(char) * (count+1));
-				count = fread(content,sizeof(char),count,fp);
-				content[count] = '\0';
-			}
-			fclose(fp);
-		}
-	}
-	return content;
-}
-
-int textFileWrite(char *fn, char *s) {
-
-	FILE *fp;
-	int status = 0;
-
-	if (fn != NULL) {
-		fp = fopen(fn,"w");
-
-		if (fp != NULL) {
-
-			if (fwrite(s,sizeof(char),strlen(s),fp) == strlen(s))
-				status = 1;
-			fclose(fp);
-		}
-	}
-
-	return(status);
-}
-
-
-void setShaders() {
-
-	char *vs,*fs;
-
-	v = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
-	f = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
-
-	string s = "shader.vert";
-	vs = textFileRead(s.c_str());
-	fs = textFileRead("shader.frag");
-
-	const char * vv = vs;
-	const char * ff = fs;
-
-	glShaderSourceARB(v, 1, &vv,NULL);
-	glShaderSourceARB(f, 1, &ff,NULL);
-
-	free(vs);free(fs);
-
-	glCompileShaderARB(v);
-	glCompileShaderARB(f);
-
-	p = glCreateProgramObjectARB();
-
-	glAttachObjectARB(p,v);
-	glAttachObjectARB(p,f);
-
-	glLinkProgramARB(p);
-
-	glUseProgramObjectARB(p);
-}
 
 void init()
 {
@@ -119,27 +34,27 @@ void init()
 	 * Inserindo o tamanho, posição
 	 * e velocidade de rotação se rotacionar
 	 */
-	Planeta sol(500);
+	Planeta sol(1200);
 	sol.setPosicao(Vector3(0,0,0));
 	sol.setTemRotacao(false);
 	sol.setTemOrbita(false);
 	planetas.push_back(sol);
 
-	Planeta mercurio(80);
-	mercurio.setPosicao(Vector3(-1000,0,0));
+	Planeta mercurio(50);
+	mercurio.setPosicao(Vector3(-1500,0,0));
 	mercurio.setGrausPorSegundo(100);
 	mercurio.setTemOrbita(true);
-	mercurio.setOrbita(new Orbita(38.0f, Vector3(0,0,0), 1000));
+	mercurio.setOrbita(new Orbita(38.0f, Vector3(0,0,0), 1500));
 	planetas.push_back(mercurio);
 
-	Planeta venus(190);
+	Planeta venus(110);
 	venus.setPosicao(Vector3(-1500,0,0));
 	venus.setGrausPorSegundo(100);
 	venus.setTemOrbita(true);
-	venus.setOrbita(new Orbita(25.0f, Vector3(0,0,0), 1500));
+	venus.setOrbita(new Orbita(25.0f, Vector3(0,0,0), 1700));
 	planetas.push_back(venus);
 
-	Planeta terra(200);
+	Planeta terra(120);
 	terra.setPosicao(Vector3(-2100,0,0));
 	terra.setGrausPorSegundo(20);
 	terra.setTemOrbita(true);
@@ -147,12 +62,47 @@ void init()
 	planetas.push_back(terra);
 
 
-	Planeta lua(50);
-	lua.setPosicao(Vector3(-2450,0,0));
+	Planeta lua(30);
+	lua.setPosicao(Vector3(-2250,0,0));
 	lua.setGrausPorSegundo(20);
 	lua.setTemOrbita(true);
-	lua.setOrbita(new Orbita(15.0f, terra.posicao, 350));
+	lua.setOrbita(new Orbita(15.0f, terra.posicao, 250));
 	planetas.push_back(lua);
+
+	Planeta marte(115);
+	marte.setPosicao(Vector3(-2900,0,0));
+	marte.setGrausPorSegundo(20);
+	marte.setTemOrbita(true);
+	marte.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 2900));
+	planetas.push_back(marte);
+
+	Planeta jupiter(250);
+	jupiter.setPosicao(Vector3(-3500,0,0));
+	jupiter.setGrausPorSegundo(20);
+	jupiter.setTemOrbita(true);
+	jupiter.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 3500));
+	planetas.push_back(jupiter);
+
+	Planeta saturno(160);
+	saturno.setPosicao(Vector3(-4000,0,0));
+	saturno.setGrausPorSegundo(20);
+	saturno.setTemOrbita(true);
+	saturno.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 4000));
+	planetas.push_back(saturno);
+
+	Planeta uranus(115);
+	uranus.setPosicao(Vector3(-4500,0,0));
+	uranus.setGrausPorSegundo(20);
+	uranus.setTemOrbita(true);
+	uranus.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 4500));
+	planetas.push_back(uranus);
+
+	Planeta neturno(115);
+	neturno.setPosicao(Vector3(-5000,0,0));
+	neturno.setGrausPorSegundo(20);
+	neturno.setTemOrbita(true);
+	neturno.setOrbita(new Orbita(15.0f, Vector3(0,0,0), 5000));
+	planetas.push_back(neturno);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClearDepth(1.0f);
@@ -161,18 +111,12 @@ void init()
 	glEnable(GL_COLOR_MATERIAL);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
-	// glEnable(GL_LIGHT0);
-	// GLfloat lightAmbient1[4] = {0.0,0.0,0.0,0.0};
-
-	// GLfloat lightDiffuse1[4] = {0.5,0.5,0.5,1};
+	glEnable(GL_LIGHT0);
 
 
-	// glLightfv(GL_LIGHT0,GL_AMBIENT,(GLfloat *) &lightAmbient1);
-	// glLightfv(GL_LIGHT0,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
 
-
-	// glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
-	// glEnable(GL_LIGHTING);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
+	glEnable(GL_LIGHTING);
 	glEnable(GL_NORMALIZE);
 
 	/**
@@ -189,7 +133,7 @@ void init()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	// Define angulo de visão e o quão longo a câmera vê
-	gluPerspective(50, 1, 200.0f, 15000.0f);
+	gluPerspective(50, 1, 200.0f, 50000);
 
 	// para desenhar, devemos voltar ao modo do modelo
 	glMatrixMode(GL_MODELVIEW);
@@ -202,6 +146,12 @@ void init()
 	planetas[2].loadTexture("texture_venus_surface.jpg");//adiciona textura para venus
 	planetas[3].loadTexture("texture_earth_clouds.jpg");//adiciona textura para terra
 	planetas[4].loadTexture("texture_moon.jpg");//adiciona textura para lua
+	planetas[5].loadTexture("texture_mars.jpg");//adiciona textura para marte
+	planetas[6].loadTexture("texture_jupiter.jpg");//adiciona textura para jupiter
+	planetas[7].loadTexture("texture_saturn.jpg");//adiciona textura para saturno
+	planetas[8].loadTexture("texture_uranus.jpg");//adiciona textura para uranu
+	planetas[9].loadTexture("texture_neptune.jpg");//adiciona textura para Neturno
+
 	galaxia.loadTexture("galaxia.jpg");//adiciona textura a galaxia
 }
 
@@ -220,32 +170,38 @@ void display(void)
 		cameraNave.desenha();
 	}
 
-	GLfloat lightPos1[4] = {0,0.0,0,1.0f};
+	GLfloat lightAmbient1[4] = {0.0,0.0,0.0,1};
+	GLfloat lightPos1[4] = {0,0.0,0,1};
+	GLfloat lightDiffuse1[4] = {1,1,1,1};
+
 	glLightfv(GL_LIGHT0,GL_POSITION,(GLfloat *) &lightPos1);
+	glLightfv(GL_LIGHT0,GL_AMBIENT,(GLfloat *) &lightAmbient1);
+	glLightfv(GL_LIGHT0,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
 
 	glColor3f(1.0, 1.0, 1.0);
 
 	float timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
-	float deltaTime = (float)(timeSinceStart - oldTimeSinceStart) / 1000.0f;
+	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000;
   	oldTimeSinceStart = timeSinceStart;
 
-  	int n = (int) planetas.size(), i = 0;
-
-	for (i = 0; i < n; i++)
+	for (int i = 0; i < (int) planetas.size(); i++)
 	{
 		if (i > 0) {
-			GLfloat di[] = {0.5, 0.5, 0.5, 1.0};
-			GLfloat ai[] = {0, 0, 0, 0.0};
+			GLfloat di[] = {0.9, 0.9, 0.9, 1.0};
+			GLfloat ai[] = {0, 0, 0, 1};
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
-		}
-		else {
+			planetas[i].desenha(deltaTime);
+		} else {
 			GLfloat di[] = {1, 1, 1, 1.0};
 			GLfloat ai[] = {1, 1, 1, 1.0};
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
+			glDisable(GL_LIGHTING);
+			planetas[i].desenha(deltaTime);
+			glEnable(GL_LIGHTING);
 		}
-		planetas[i].desenha(deltaTime);
+		
 	}
 
 	galaxia.desenha();
@@ -364,16 +320,14 @@ int main ( int argc, char** argv )
 	glutInit( &argc, argv );
 
 	glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize(700, 700 );
+	glutInitWindowSize(600, 600 );
 	glutCreateWindow( "Sistema Solar" );
 	init();
 	glutDisplayFunc(display);
-	glutIdleFunc(display);
 	glutReshapeFunc(reshape);
 	glutMouseFunc(mouse);
 	glutKeyboardFunc(keyboard);
 	glutSpecialFunc(specialKeyboard);
-	glewInit();
-	setShaders();
+
 	glutMainLoop();
 }
