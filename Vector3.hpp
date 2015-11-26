@@ -7,6 +7,14 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+
+#include <malloc.h>
+#include <fcntl.h>
+#include <string.h>
+#include <sys/types.h>
+
+#include <unistd.h>
+
 #include "Textura.hpp"
 
 #define PI 3.14159265//usado para rotação

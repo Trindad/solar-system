@@ -16,6 +16,7 @@ public:
   void setTemRotacao(bool);
   void setOrbita(Orbita*);
   void loadTexture(const char*);
+  void renderSphere(float cx, float cy, float cz, float r, int p);
 
   int raio;
   int temOrbita;
