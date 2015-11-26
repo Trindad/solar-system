@@ -113,11 +113,12 @@ void init()
 	glEnable(GL_COLOR_MATERIAL);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
+	float vAmbientLightBright[4] = {0.05f, 0.05f, 0.05f, 1.0f};
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, vAmbientLightBright);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
+
 	glEnable(GL_LIGHT0);
 
-
-
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_NORMALIZE);
 
@@ -203,7 +204,7 @@ void display(void)
 			planetas[i].desenha(deltaTime);
 			glEnable(GL_LIGHTING);
 		}
-		
+
 	}
 
 	galaxia.desenha();
