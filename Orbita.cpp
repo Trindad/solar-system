@@ -47,6 +47,7 @@ void Orbita::desenha()
    int i;
 
    glPushMatrix();
+   glBindTexture(GL_TEXTURE_2D, 0);
    glDisable(GL_LIGHTING);
    glBegin(GL_LINE_LOOP);
    glColor3f(1,1,1);

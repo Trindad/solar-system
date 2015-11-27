@@ -4,6 +4,7 @@ Planeta::Planeta(int r)
 {
   raio = r;
   grausPorSegundo = 180.0f;
+  desenharOrbita = true;
 }
 
 Planeta::~Planeta()
@@ -11,7 +12,7 @@ Planeta::~Planeta()
 
 void Planeta::desenha(float deltaTempo)
 {
-  glBindTexture (GL_TEXTURE_2D, this->texture);
+
   rotacao += deltaTempo * grausPorSegundo;
 
   while (rotacao > 360.0f)
@@ -19,12 +20,13 @@ void Planeta::desenha(float deltaTempo)
     rotacao -= 360.0f;
   }
 
-  if (temOrbita)
+  if (temOrbita && desenharOrbita)
   {
     orbita->desenha();
   }
 
   glPushMatrix();
+  glBindTexture (GL_TEXTURE_2D, this->texture);
 
   if (temOrbita)
   {
@@ -88,4 +90,9 @@ void Planeta::setOrbita(Orbita* o)
 void Planeta::loadTexture(const char* filename)
 {
   this->texture = Textura::loadTexture(filename);
+}
+
+void Planeta::setDesenharOrbita(bool b)
+{
+  desenharOrbita = b;
 }

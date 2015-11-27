@@ -11,7 +11,7 @@ Anel::~Anel(){}
 
 void Anel::desenha( GLfloat *scale,float deltaTempo)
 {
-  
+
   rotacao += deltaTempo * grausPorSegundo;
 
   while (rotacao > 360.0f)
@@ -22,7 +22,7 @@ void Anel::desenha( GLfloat *scale,float deltaTempo)
   glPushMatrix();
 
   // glTranslatef(posicao.f[0],posicao.f[1],posicao.f[2]);
-  
+
   if (temOrbita)
   {
     this->orbita->atualiza(deltaTempo);
@@ -38,7 +38,8 @@ void Anel::desenha( GLfloat *scale,float deltaTempo)
     glRotatef(rotacao, 0, 1, 0);
   }
 
-  	glRotatef(90, 1, 0, 0);
+  glRotatef(10, 1, 0, 0);
+  glRotatef(90, 1, 0, 0);
 	glScalef(scale[0], scale[1], scale[2]);
 	desenhaTorus(this->innerRadius, this->outerRadius,100, 100, this->texture);
 	glPopMatrix();

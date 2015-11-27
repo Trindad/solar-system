@@ -20,7 +20,7 @@
 #include "Anel.hpp"
 
 vector<Planeta> planetas;
-Galaxia galaxia(10000);//insere textura na galaxia
+Galaxia galaxia(5000);//insere textura na galaxia
 Anel anelDeSaturno(80, 300);//anel de saturno entra com o raio interno e externo do torus
 float oldTimeSinceStart = 0;
 // Camera deus(Vector3(0.1,8000,0.1));
@@ -65,11 +65,11 @@ void init()
 	planetas.push_back(terra);
 
 
-	Planeta lua(30);
+	Planeta lua(((12742*1200)/1391900) * 0.4);
 	lua.setPosicao(Vector3(-2250,0,0));
 	lua.setGrausPorSegundo(20);
 	lua.setTemOrbita(true);
-	lua.setOrbita(new Orbita(14957*orbita, terra.posicao, 250));
+	lua.setOrbita(new Orbita(14957*orbita, terra.posicao, 20));
 	planetas.push_back(lua);
 
 	Planeta marte((6760*1200)/1391900);
@@ -89,14 +89,14 @@ void init()
 	Planeta saturno((116438*1200)/1391900);
 	saturno.setPosicao(Vector3(-4000,0,0));
 	saturno.setGrausPorSegundo(0);
-	saturno.setTemOrbita(false);//142700*orbita
-	saturno.setOrbita(new Orbita(0, Vector3(0,0,0), 4000));
+	saturno.setTemOrbita(true);//
+	saturno.setOrbita(new Orbita(142700*orbita, Vector3(0,0,0), 4000));
 	planetas.push_back(saturno);
 
 	anelDeSaturno.setPosicao(Vector3(-4000,0,0));
 	anelDeSaturno.setGrausPorSegundo(0);
-	anelDeSaturno.setTemOrbita(false);//142700*orbita
-	anelDeSaturno.setOrbita(new Orbita(0, Vector3(0,0,0), 4000));
+	anelDeSaturno.setTemOrbita(true);//142700*orbita
+	anelDeSaturno.setOrbita(new Orbita(142700*orbita, Vector3(0,0,0), 4000));
 
 	Planeta uranus((46940*1200)/1391900);
 	uranus.setPosicao(Vector3(-4500,0,0));
@@ -161,7 +161,7 @@ void init()
 	planetas[8].loadTexture("texture_uranus.jpg");//adiciona textura para uranu
 	planetas[9].loadTexture("texture_neptune.jpg");//adiciona textura para Neturno
 	anelDeSaturno.loadTexture("texture_saturn_ring.png");//anel de saturno
-	galaxia.loadTexture("galaxia.jpg");//adiciona textura a galaxia
+	galaxia.loadTexture("nebula.jpg");//adiciona textura a galaxia
 }
 
 /**
@@ -195,6 +195,8 @@ void display(void)
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
+		planetas[i].setDesenharOrbita(modoDeus);
+
 		if (i > 0) {
 			GLfloat di[] = {0.9, 0.9, 0.9, 1.0};
 			GLfloat ai[] = {0, 0, 0, 1};

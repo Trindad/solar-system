@@ -85,7 +85,7 @@ void Camera::rotacionaParaCima()
 	Vector3 t = dir.produtoExterno(up);
 
 	dir = rotacionaVetor(dir,t,-1.0f);//rotaciona 1 graus
-	up = rotacionaVetor(up,t,-1.0f);//rotaciona 1 graus
+	// up = rotacionaVetor(up,t,-1.0f);//rotaciona 1 graus
 
 	this->lookAt = posicao + dir;
 }
@@ -96,7 +96,7 @@ void Camera::rotacionaParaBaixo()
 	Vector3 t = dir.produtoExterno(up);
 
 	dir = rotacionaVetor(dir,t,1.0f);//rotaciona 1 graus
-	up = rotacionaVetor(up,t,1.0f);//rotaciona 1 graus
+	// up = rotacionaVetor(up,t,1.0f);//rotaciona 1 graus
 
 	this->lookAt = posicao + dir;
 }
@@ -105,7 +105,7 @@ void Camera::rotacionaParaBaixo()
  * Rotaciona vetor (ux, uy, uz) em torno (vx, vy, vz) por "angulo"
  */
 Vector3 Camera::rotacionaVetor(Vector3 u, Vector3 v, float graus) {
-  
+
   float angulo = graus * PI/180.0f;//transforma de graus para radianos
 
   float ca = cos(angulo);

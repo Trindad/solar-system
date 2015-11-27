@@ -14,12 +14,14 @@ public:
   void setGrausPorSegundo(float);
   void setTemOrbita(bool);
   void setTemRotacao(bool);
+  void setDesenharOrbita(bool);
   void setOrbita(Orbita*);
   void loadTexture(const char*);
-  
+
   int raio;
   int temOrbita;
   int temRotacao;
+  bool desenharOrbita;
   Orbita *orbita;
   GLfloat rotacao;
   Vector3 posicao;
