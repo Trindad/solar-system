@@ -44,6 +44,8 @@ void Planeta::desenha(float deltaTempo)
     glRotatef(rotacao, 0, 1, 0);
   }
 
+  glRotatef(90,1.0f,0.0f,0.0f);
+
   GLUquadricObj  *esfera = gluNewQuadric();
 
   /**
@@ -55,7 +57,6 @@ void Planeta::desenha(float deltaTempo)
   gluQuadricTexture(esfera,GL_TRUE);
 
   gluSphere(esfera, raio, 32, 32);
-  // renderSphere(0.1, 0.1, 0.1, raio,10);
 
   glPopMatrix();
   glNormal3f(0,0,1);

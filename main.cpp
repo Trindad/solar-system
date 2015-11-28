@@ -20,7 +20,7 @@
 #include "Anel.hpp"
 
 vector<Planeta> planetas;
-Galaxia galaxia(5000);//insere textura na galaxia
+Galaxia galaxia(10000);//insere textura na galaxia
 Anel anelDeSaturno(80, 300);//anel de saturno entra com o raio interno e externo do torus
 float oldTimeSinceStart = 0;
 // Camera deus(Vector3(0.1,8000,0.1));
@@ -161,7 +161,7 @@ void init()
 	planetas[8].loadTexture("texture_uranus.jpg");//adiciona textura para uranu
 	planetas[9].loadTexture("texture_neptune.jpg");//adiciona textura para Neturno
 	anelDeSaturno.loadTexture("texture_saturn_ring.png");//anel de saturno
-	galaxia.loadTexture("nebula.jpg");//adiciona textura a galaxia
+	galaxia.loadTexture("galaxia.jpg");//adiciona textura a galaxia
 }
 
 /**
