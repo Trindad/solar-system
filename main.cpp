@@ -200,17 +200,23 @@ void display(void)
 		if (i > 0) {
 			GLfloat di[] = {0.9, 0.9, 0.9, 1.0};
 			GLfloat ai[] = {0, 0, 0, 1};
+			GLfloat em[] = {0,0,0,0};
+
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
 			planetas[i].desenha(deltaTime);
 		} else {
-			GLfloat di[] = {1, 1, 1, 1.0};
-			GLfloat ai[] = {1, 1, 1, 1.0};
+			GLfloat di[] = {1, 1, 1, 0.1};
+			GLfloat ai[] = {1, 1, 1, 0.1};
+			GLfloat em[] = {247.0f/255.0f, 225.0f/255.0f, 56.0f/255,1.0};//emissão de luz do objeto
+
+			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
-			glDisable(GL_LIGHTING);
+			// glDisable(GL_LIGHTING);
 			planetas[i].desenha(deltaTime);
-			glEnable(GL_LIGHTING);
+			// glEnable(GL_LIGHTING);
 		}
 
 	}
