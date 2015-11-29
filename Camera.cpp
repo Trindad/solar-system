@@ -15,22 +15,41 @@ Camera::~Camera(){}
  */
 void Camera::zoom(int pos, int x, int z)
 {
+
 	this->posicao = this->posicao + Vector3(0,pos*50,0);
 
-  if (this->posicao.f[1] < 1500) {
-    this->posicao.f[1] = 1500;
-  }
+	//limite do zoom
+	if (this->posicao.f[1] < 300) {
+		this->posicao.f[1] = 300;
+	}
 
-  if (this->posicao.f[1] > 5000) {
-    this->posicao.f[1] = 5000;
-  }
+	if (this->posicao.f[1] > 10000) {
+		this->posicao.f[1] = 10000;
+	}
 
+	this->lookAt.f[0] = this->lookAt.f[0]*(1-0.01) + x*0.01;
+	this->lookAt.f[2] = this->lookAt.f[2]*(1-0.01) + z*0.01;
 
-	this->lookAt.f[0] = this->lookAt.f[0]*(1-0.2) + x*0.2;
-	this->lookAt.f[2] = this->lookAt.f[2]*(1-0.2) + z*0.2;
+	if (this->lookAt.f[0] > 5000) {
+		this->lookAt.f[0] = 5000;
+	}
+
+	if (this->lookAt.f[0] < -5000) {
+		this->lookAt.f[0] = -5000;
+	}
+
+	if (this->lookAt.f[2] > 5000) {
+		this->lookAt.f[2] = 5000;
+	}
+
+	if (this->lookAt.f[2] < -5000) {
+		this->lookAt.f[2] = -5000;
+	}
 
 	this->posicao.f[0] = this->lookAt.f[0] + 1;
 	this->posicao.f[2] = this->lookAt.f[2] + 1;
+
+	
 }
 
 void Camera::desenha()
@@ -85,8 +104,6 @@ void Camera::rotacionaParaCima()
 	Vector3 t = dir.produtoExterno(up);
 
 	dir = rotacionaVetor(dir,t,-1.0f);//rotaciona 1 graus
-	// up = rotacionaVetor(up,t,-1.0f);//rotaciona 1 graus
-
 	this->lookAt = posicao + dir;
 }
 
@@ -96,8 +113,6 @@ void Camera::rotacionaParaBaixo()
 	Vector3 t = dir.produtoExterno(up);
 
 	dir = rotacionaVetor(dir,t,1.0f);//rotaciona 1 graus
-	// up = rotacionaVetor(up,t,1.0f);//rotaciona 1 graus
-
 	this->lookAt = posicao + dir;
 }
 

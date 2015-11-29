@@ -1,7 +1,4 @@
 #include "Orbita.hpp"
-#include <GL/gl.h>
-#include <GL/glut.h>
-#include <iostream>
 
 /**
  * Inicializa variáveis
@@ -61,6 +58,13 @@ void Orbita::desenha()
       glutWireCube(2);
       glPopMatrix();
    }
+   
+   // for (int i=0; i<=360; i++) {
+   //    glPushMatrix();
+   //    glTranslatef((float)cos(i*PI/180.0f)*raio, 0,(float)sin(i*PI/180.0f)*raio*1.5f);
+   //    glutWireCube(2);
+   //    glPopMatrix();
+   // }
 
    glEnable(GL_LIGHTING);
 }

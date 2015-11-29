@@ -18,15 +18,16 @@
 #include "Planeta.hpp"
 #include "Galaxia.hpp"
 #include "Anel.hpp"
+#include "Nave.hpp"
 
  #define ESCALA_PLANETAS 2
 
 vector<Planeta> planetas;
-Galaxia galaxia(10000);//insere textura na galaxia
+Galaxia galaxia(13000);//insere textura na galaxia
 Anel anelDeSaturno(80*ESCALA_PLANETAS, 300*ESCALA_PLANETAS);//anel de saturno entra com o raio interno e externo do torus
 float oldTimeSinceStart = 0;
 // Camera deus(Vector3(0.1,8000,0.1));
-Camera deus(Vector3(-4000,500,0.1));
+Camera deus(Vector3(0,10000,0.1));
 Camera cameraNave(Vector3(1800,0,1800));
 bool modoDeus = true;
 
