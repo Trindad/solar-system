@@ -161,7 +161,7 @@ void init()
 	planetas[8].loadTexture("texture_uranus.jpg");//adiciona textura para uranu
 	planetas[9].loadTexture("texture_neptune.jpg");//adiciona textura para Neturno
 	anelDeSaturno.loadTexture("texture_saturn_ring.png");//anel de saturno
-	galaxia.loadTexture("galaxia.jpg");//adiciona textura a galaxia
+	galaxia.loadTexture("large_medium_to_low_density_starfield_5400x3600_by_garryts-d7tni3c.jpg");//adiciona textura a galaxia
 }
 
 /**
@@ -215,7 +215,9 @@ void display(void)
 
 	}
 
+	glDisable(GL_LIGHTING);
 	galaxia.desenha();
+	glEnable(GL_LIGHTING);
 
 	//Configurações do anel
 	GLfloat confAnel[][3] = {
