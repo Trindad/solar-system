@@ -19,9 +19,11 @@
 #include "Galaxia.hpp"
 #include "Anel.hpp"
 
+ #define ESCALA_PLANETAS 2
+
 vector<Planeta> planetas;
 Galaxia galaxia(10000);//insere textura na galaxia
-Anel anelDeSaturno(80, 300);//anel de saturno entra com o raio interno e externo do torus
+Anel anelDeSaturno(80*ESCALA_PLANETAS, 300*ESCALA_PLANETAS);//anel de saturno entra com o raio interno e externo do torus
 float oldTimeSinceStart = 0;
 // Camera deus(Vector3(0.1,8000,0.1));
 Camera deus(Vector3(-4000,500,0.1));
@@ -43,21 +45,21 @@ void init()
 	sol.setTemOrbita(false);
 	planetas.push_back(sol);
 
-	Planeta mercurio( (4866*1200)/1391900);
+	Planeta mercurio( ((4866*1200)/1391900)*ESCALA_PLANETAS);
 	mercurio.setPosicao(Vector3(-1500,0,0));
 	mercurio.setGrausPorSegundo(20);
 	mercurio.setTemOrbita(true);
 	mercurio.setOrbita(new Orbita(5795*orbita, Vector3(0,0,0), 1500));
 	planetas.push_back(mercurio);
 
-	Planeta venus((12106*1200)/1391900);
+	Planeta venus(((12106*1200)/1391900)*ESCALA_PLANETAS);
 	venus.setPosicao(Vector3(-1500,0,0));
 	venus.setGrausPorSegundo(20);
 	venus.setTemOrbita(true);
 	venus.setOrbita(new Orbita(10811*orbita, Vector3(0,0,0), 1700));
 	planetas.push_back(venus);
 
-	Planeta terra((12742*1200)/1391900);
+	Planeta terra(((12742*1200)/1391900)*ESCALA_PLANETAS);
 	terra.setPosicao(Vector3(-2100,0,0));
 	terra.setGrausPorSegundo(20);
 	terra.setTemOrbita(true);
@@ -65,28 +67,28 @@ void init()
 	planetas.push_back(terra);
 
 
-	Planeta lua(((12742*1200)/1391900) * 0.4);
+	Planeta lua((((12742*1200)/1391900) * 0.4)*ESCALA_PLANETAS);
 	lua.setPosicao(Vector3(-2250,0,0));
 	lua.setGrausPorSegundo(20);
 	lua.setTemOrbita(true);
-	lua.setOrbita(new Orbita(14957*orbita, terra.posicao, 20));
+	lua.setOrbita(new Orbita(14957*orbita, terra.posicao, 20*ESCALA_PLANETAS));
 	planetas.push_back(lua);
 
-	Planeta marte((6760*1200)/1391900);
+	Planeta marte(((6760*1200)/1391900)*ESCALA_PLANETAS);
 	marte.setPosicao(Vector3(-2900,0,0));
 	marte.setGrausPorSegundo(20);
 	marte.setTemOrbita(true);
 	marte.setOrbita(new Orbita(22784*orbita, Vector3(0,0,0), 2900));
 	planetas.push_back(marte);
 
-	Planeta jupiter((142984*1200)/1391900);
+	Planeta jupiter(((142984*1200)/1391900)*ESCALA_PLANETAS);
 	jupiter.setPosicao(Vector3(-3500,0,0));
 	jupiter.setGrausPorSegundo(20);
 	jupiter.setTemOrbita(true);
 	jupiter.setOrbita(new Orbita(77814*orbita, Vector3(0,0,0), 3500));
 	planetas.push_back(jupiter);
 
-	Planeta saturno((116438*1200)/1391900);
+	Planeta saturno(((116438*1200)/1391900)*ESCALA_PLANETAS);
 	saturno.setPosicao(Vector3(-4000,0,0));
 	saturno.setGrausPorSegundo(0);
 	saturno.setTemOrbita(true);//
@@ -98,14 +100,14 @@ void init()
 	anelDeSaturno.setTemOrbita(true);//142700*orbita
 	anelDeSaturno.setOrbita(new Orbita(142700*orbita, Vector3(0,0,0), 4000));
 
-	Planeta uranus((46940*1200)/1391900);
+	Planeta uranus(((46940*1200)/1391900)*ESCALA_PLANETAS);
 	uranus.setPosicao(Vector3(-4500,0,0));
 	uranus.setGrausPorSegundo(20);
 	uranus.setTemOrbita(true);
 	uranus.setOrbita(new Orbita(287030*orbita, Vector3(0,0,0), 4500));
 	planetas.push_back(uranus);
 
-	Planeta neturno((45432*1200)/1391900);
+	Planeta neturno(((45432*1200)/1391900)*ESCALA_PLANETAS);
 	neturno.setPosicao(Vector3(-5000,0,0));
 	neturno.setGrausPorSegundo(20);
 	neturno.setTemOrbita(true);
@@ -195,7 +197,7 @@ void display(void)
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
-		planetas[i].setDesenharOrbita(modoDeus);
+		planetas[i].setDesenharOrbita(true);
 
 		if (i > 0) {
 			GLfloat di[] = {0.9, 0.9, 0.9, 1.0};

@@ -46,10 +46,9 @@ void Orbita::desenha()
 {
    int i;
 
-   glPushMatrix();
+   // Desabilita textura
    glBindTexture(GL_TEXTURE_2D, 0);
    glDisable(GL_LIGHTING);
-   glBegin(GL_LINE_LOOP);
    glColor3f(1,1,1);
 
    float degInRad = PI/180.0f;
@@ -57,11 +56,11 @@ void Orbita::desenha()
    for(i=0;i<360;i++)
    {
       float rad = i*(PI/180.0f);
-      glVertex3f(raio*cos(rad),0, raio*sin(rad));
-      // glVertex3f(raio*cos(rad),0, raio*sin(rad));
+      glPushMatrix();
+      glTranslatef(raio*cos(rad), 0, raio*sin(rad));
+      glutWireCube(2);
+      glPopMatrix();
    }
 
-   glEnd();
-   glPopMatrix();
    glEnable(GL_LIGHTING);
 }
