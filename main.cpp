@@ -198,7 +198,7 @@ void display(void)
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
-		planetas[i].setDesenharOrbita(true);
+		planetas[i].setDesenharOrbita(i != 0 && i != 4);
 
 		if (i > 0) {
 			GLfloat di[] = {0.9, 0.9, 0.9, 1.0};

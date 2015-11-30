@@ -50,7 +50,7 @@ void Orbita::desenha()
 
    float degInRad = PI/180.0f;
 
-   for(i=0;i<360;i++)
+   for(i = 0; i < 360;i++)
    {
       float rad = i*(PI/180.0f);
       glPushMatrix();

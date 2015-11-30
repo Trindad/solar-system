@@ -85,18 +85,7 @@ Galaxia::~Galaxia(){}
 void Galaxia::desenha()
 {
     glBindTexture (GL_TEXTURE_2D, texture);
-    // glTexGeni(GL_S,GL_TEXTURE_GEN_MODE,GL_OBJECT_LINEAR);
-    // glEnable(GL_TEXTURE_GEN_S);
-
-    // glTexGeni(GL_T,GL_TEXTURE_GEN_MODE,GL_OBJECT_LINEAR);
-    // glEnable(GL_TEXTURE_GEN_T);
-
-    // float s[4] = {1/256,0,0,0};
-    // glTexGenfv(GL_S,GL_OBJECT_PLANE,s);
-
-    // float t[4] = {0,0,1/256,0};
-    // glTexGenfv(GL_T,GL_OBJECT_PLANE,t);
-
+   
 	glPushMatrix();
 
 	SolidSphere sphere(raio, 50, 50);
