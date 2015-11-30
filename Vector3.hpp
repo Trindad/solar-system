@@ -10,7 +10,8 @@
 
 #include <malloc.h>
 #include <fcntl.h>
-#include <string.h>
+#include <string>
+#include <sstream>
 #include <sys/types.h>
 
 #include <unistd.h>

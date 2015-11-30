@@ -33,6 +33,8 @@ bool modoDeus = true;
 
 float orbita = 1.0f/10000.0f;
 
+Nave nave;
+
 void init()
 {
 	/**
@@ -235,6 +237,8 @@ void display(void)
 					{0.3f,0.3f,0.03f}//escala
 					};
 	anelDeSaturno.desenha(confAnel[2],deltaTime);
+
+	nave.desenha();
 
 	glutSwapBuffers();
 	glutPostRedisplay();

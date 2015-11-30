@@ -12,6 +12,7 @@ Planeta::~Planeta()
 
 void Planeta::desenha(float deltaTempo)
 {
+
   rotacao += deltaTempo * grausPorSegundo;
 
   while (this->rotacao > 360.0f)
