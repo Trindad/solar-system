@@ -20,7 +20,7 @@ void Planeta::desenha(float deltaTempo)
     rotacao -= 360.0f;
   }
 
-  if (temOrbita && desenharOrbita)
+  if (temOrbita == true && desenharOrbita == true)
   {
     orbita->desenha();
   }

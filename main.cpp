@@ -33,6 +33,8 @@ bool modoDeus = true;
 
 float orbita = 1.0f/10000.0f;
 
+Nave nave;
+
 void init()
 {
 	/**
@@ -198,7 +200,7 @@ void display(void)
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
-		planetas[i].setDesenharOrbita(true);
+		planetas[i].setDesenharOrbita(i > 0);
 
 		if (i > 0) {
 			GLfloat di[] = {0.9, 0.9, 0.9, 1.0};
@@ -235,6 +237,8 @@ void display(void)
 					{0.3f,0.3f,0.03f}//escala
 					};
 	anelDeSaturno.desenha(confAnel[2],deltaTime);
+
+	nave.desenha();
 
 	glutSwapBuffers();
 	glutPostRedisplay();
