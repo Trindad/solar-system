@@ -28,11 +28,15 @@ void Nave::desenha() {
   GLushort elements[((int) _vertices.size()) * 3];
 
   int c = 0;
+
   for (int i = 0; i < (int) _vertices.size(); i++)
   {
-    vertices[c++] = _vertices[i].f[0];
-    vertices[c++] = _vertices[i].f[1];
-    vertices[c++] = _vertices[i].f[2];
+    vertices[c] = _vertices[i].f[0];
+  	c++;
+    vertices[c] = _vertices[i].f[1];
+    c++;
+    vertices[c] = _vertices[i].f[2];
+    c++;
   }
 
   c = 0;

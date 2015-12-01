@@ -56,9 +56,12 @@ void Planeta::desenha(float deltaTempo)
   gluQuadricOrientation(esfera,GLU_OUTSIDE);
   gluQuadricTexture(esfera,GL_TRUE);
 
-  gluSphere(esfera, raio, 32, 32);
+  gluSphere(esfera, raio,50, 50);
 
+  glDisable(GL_TEXTURE_GEN_S);
+  glDisable(GL_TEXTURE_GEN_T);
   glPopMatrix();
+  
   glNormal3f(0,0,1);
 }
 
