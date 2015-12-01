@@ -180,7 +180,9 @@ void display(void)
 
 	if (modoDeus) {
 		deus.desenha();
-	} else {
+	} 
+	else 
+	{
 		cameraNave.desenha();
 	}
 
