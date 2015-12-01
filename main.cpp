@@ -147,7 +147,7 @@ void init()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	// Define angulo de visão e o quão longo a câmera vê
-	gluPerspective(50, 1, 50.0f, 50000);
+	gluPerspective(50, 1, 50.0f, 80000);
 
 	// para desenhar, devemos voltar ao modo do modelo
 	glMatrixMode(GL_MODELVIEW);
@@ -255,7 +255,7 @@ void reshape(int w, int h)
 
 	float aspect = 1.0f*w/h;
 
-	gluPerspective (50,aspect,50.0f,15000.0f );
+	gluPerspective (50,aspect,50.0f,80000);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

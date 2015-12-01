@@ -1,6 +1,8 @@
 #include "Nave.hpp"
 
-Nave::Nave(){}
+Nave::Nave(){
+  load_obj("nave.obj", _vertices, _normals, _elements);
+}
 Nave::~Nave(){}
 
 void Nave::asa()
@@ -17,12 +19,6 @@ void Nave::asa()
 }
 
 void Nave::desenha() {
-  vector<Vector3> _vertices;
-  vector<Vector3> _normals;
-  vector<GLushort> _elements;
-
-  load_obj("nave.obj", _vertices, _normals, _elements);
-
   GLfloat vertices[((int) _vertices.size()) * 3];
   GLfloat normals[((int) _vertices.size()) * 3];
   GLushort elements[((int) _vertices.size()) * 3];
