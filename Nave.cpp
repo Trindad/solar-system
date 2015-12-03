@@ -20,11 +20,9 @@ void Nave::asa()
 
 void Nave::desenha() {
 
-  int n = ((int) _vertices.size()) * 3;
-
-  GLfloat vertices[n];
-  GLfloat normals[n];
-  GLushort elements[n];
+  GLfloat vertices[3*(int)_vertices.size()];
+  GLfloat normals[3*(int)_normals.size()];
+  GLushort elements[3*(int)_elements.size()];
 
   int c = 0;
 
@@ -54,10 +52,9 @@ void Nave::desenha() {
 
   glEnableClientState(GL_VERTEX_ARRAY);
   glEnableClientState(GL_NORMAL_ARRAY);
-  glVertexPointer(3,GL_FLOAT, 0,vertices);
-  glNormalPointer(GL_FLOAT, 0, normals);
-  n =  (int) _elements.size();
-  glDrawElements(GL_TRIANGLES,n, GL_UNSIGNED_SHORT, elements);
+  glVertexPointer(3,GL_FLOAT, 0,&vertices[0]);
+  glNormalPointer(GL_FLOAT, 0, &normals[0]);
+  glDrawElements(GL_TRIANGLES,c-1, GL_UNSIGNED_SHORT, &elements[0]);
 
   glDisableClientState(GL_NORMAL_ARRAY);
   glDisableClientState(GL_VERTEX_ARRAY);
@@ -90,37 +87,28 @@ void Nave::load_obj(const char* filename, vector<Vector3> &vertices, vector<Vect
         {
           vector<string> els = split(line.substr(3), ' ');
           
-          if (els.size() > 1) {
+          if ((int)els.size() > 1) {
             Vector3 v(atof(els.at(0).c_str()), atof(els.at(1).c_str()), atof(els.at(2).c_str()));
             normals.push_back(v);
           }
         }
         else if (line.substr(0,2).compare("f ") == 0)
         {
-          vector<string> els = split(line, ' ');
+          vector<string> str = split(line, 'f');
+          vector<string> els = split(str[1], ' ');
+          
           for (int k = 0; k < (int) els.size(); k++)
           {
             vector<string> e = split(els[k], '/');
-            if (e.size() > 1) {
-              elements.push_back(atof(e.at(0).c_str()) - 1);
+
+            if ((int)e.size() > 1) 
+            {
+              GLushort tmp = (GLushort)atoi(e.at(0).c_str()) - 1;
+              elements.push_back(tmp);
               // elements.push_back(atof(e.at(1).c_str()) - 1);
               // elements.push_back(atof(e.at(2).c_str()) - 1);
             }
           }
-           //  string t = line.substr(2);
-           //  cout<<" "<<t<<endl;
-           //  istringstream s(t);
-           //  GLushort a,b,c;
-           //  s >> a; s >> b; s >> c;
-           //  cout<<std::setprecision(10)<<a<<" "<<std::setprecision(10)<<b<<" "<<std::setprecision(10)<<c<<endl;
-           //  a--; b--; c--;
-           // elements.push_back(a); 
-           // elements.push_back(b); 
-           // elements.push_back(c);
-        }
-        else if (line.substr(0,2).compare("# ") == 0)
-        {
-            continue;
         }
     }
 

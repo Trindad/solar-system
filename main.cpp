@@ -10,9 +10,6 @@
  */
 #include <GL/glew.h>
 #include <GL/glut.h>
-#include <math.h>
-#include <vector>
-#include <iostream>
 
 #include "Camera.hpp"
 #include "Planeta.hpp"
@@ -186,7 +183,7 @@ void display(void)
 		cameraNave.desenha();
 	}
 
-	GLfloat lightAmbient1[4] = {0.0,0.0,0.0,1};
+	GLfloat lightAmbient1[4] = {0.0f,0.0f,0.0f,1};
 	GLfloat lightPos1[4] = {0,0.0,0,1};
 	GLfloat lightDiffuse1[4] = {1,1,1,1};
 
@@ -194,10 +191,10 @@ void display(void)
 	glLightfv(GL_LIGHT0,GL_AMBIENT,(GLfloat *) &lightAmbient1);
 	glLightfv(GL_LIGHT0,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
 
-	glColor3f(1.0, 1.0, 1.0);
+	glColor3f(1.0f, 1.0f, 1.0f);
 
 	float timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
-	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000;
+	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000.0f;
   	oldTimeSinceStart = timeSinceStart;
 
 	for (int i = 0; i < (int) planetas.size(); i++)
@@ -214,8 +211,8 @@ void display(void)
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
 			planetas[i].desenha(deltaTime);
 		} else {
-			GLfloat di[] = {1, 1, 1, 0.1};
-			GLfloat ai[] = {1, 1, 1, 0.1};
+			GLfloat di[] = {1, 1, 1, 0.1f};
+			GLfloat ai[] = {1, 1, 1, 0.1f};
 			GLfloat em[] = {247.0f/255.0f, 225.0f/255.0f, 56.0f/255,1.0};//emissão de luz do objeto
 
 			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
@@ -240,7 +237,9 @@ void display(void)
 					};
 	anelDeSaturno.desenha(confAnel[2],deltaTime);
 
+	glPushMatrix();
 	nave.desenha();
+	glPopMatrix();
 
 	glutSwapBuffers();
 	glutPostRedisplay();
