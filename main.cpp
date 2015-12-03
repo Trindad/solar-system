@@ -177,8 +177,8 @@ void display(void)
 
 	if (modoDeus) {
 		deus.desenha();
-	} 
-	else 
+	}
+	else
 	{
 		cameraNave.desenha();
 	}
@@ -358,6 +358,7 @@ int main ( int argc, char** argv )
 	glutInitWindowSize(600, 600 );
 	glutCreateWindow( "Sistema Solar" );
 	init();
+	nave.init();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutMouseFunc(mouse);
