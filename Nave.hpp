@@ -8,13 +8,17 @@ public:
 
   void desenha();
   void init();
-  void load_obj(const char* filename, vector<Vector3> &vertices, vector<Vector3> &normals, vector<GLushort> &elements);
+  void carrega_obj(const char* arquivo);
   vector<string> &split(const string &s, char delim, vector<string> &elems);
   vector<string> split(const string &s, char delim);
-  vector<Vector3> _vertices;
-  vector<Vector3> _normals;
-  vector<GLushort> _elements;
+  vector<Vector3> vertices;
+  vector<Vector3> normais;
+  vector<GLushort> indices;
 
-  vector<int> indexed_vertices;
-  vector<int> indexed_normals;
+  /**
+   * Ordem para a criação dos triângulos
+   * de forma correta
+   */
+  vector<int> indices_vertices;
+  vector<int> indices_normais;
 };

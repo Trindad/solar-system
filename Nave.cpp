@@ -7,57 +7,56 @@ Nave::~Nave(){}
 
 void Nave::init()
 {
-  load_obj("nave.obj", _vertices, _normals, _elements);
+  carrega_obj("nave.obj");
 }
 
 void Nave::desenha() {
   glPushMatrix();
   glBegin(GL_TRIANGLES);
-  for (int i = 0; i < (int) _elements.size(); i++)
+  for (int i = 0; i < (int) indices.size(); i++)
   {
-    glNormal3f(_normals[indexed_normals[i]].f[0], _normals[indexed_normals[i]].f[1], _normals[indexed_normals[i]].f[2]);
-    glVertex3f(_vertices[indexed_vertices[i]].f[0], _vertices[indexed_vertices[i]].f[1], _vertices[indexed_vertices[i]].f[2]);
+    glNormal3f(normais[indices_normais[i]].f[0], normais[indices_normais[i]].f[1], normais[indices_normais[i]].f[2]);
+    glVertex3f(vertices[indices_vertices[i]].f[0], vertices[indices_vertices[i]].f[1], vertices[indices_vertices[i]].f[2]);
   }
   glEnd();
   glPopMatrix();
 }
 
-void Nave::load_obj(const char* filename, vector<Vector3> &vertices, vector<Vector3> &normals, vector<GLushort> &elements)
+void Nave::carrega_obj(const char* arquivo)
 {
-    ifstream in(filename, ios::in);
+    ifstream in(arquivo, ios::in);
 
     if (!in)
     {
-      cerr << "Cannot open " << filename << endl;
+      cerr << "Não foi possível carregar o arquivo: " << arquivo << endl;
       exit(1);
     }
 
-    string line;
+    string linha;
 
-    while (getline(in, line))
+    while (getline(in, linha))
     {
-        if (line.substr(0,2).compare("v ") == 0)
+        if (linha.substr(0,2).compare("v ") == 0)
         {
-            string t = line.substr(2);
+            string t = linha.substr(2);
             istringstream s(t);
             GLfloat _a, _b, _c;
             s >> _a; s >> _b; s >> _c;
             Vector3 v(_a,_b,_c);
             vertices.push_back(v);
         }
-        else if (line.substr(0,3).compare("vn ") == 0)
+        else if (linha.substr(0,3).compare("vn ") == 0)
         {
-          vector<string> els = split(line.substr(3), ' ');
+          vector<string> els = split(linha.substr(3), ' ');
 
           if ((int)els.size() > 1) {
             Vector3 v(atof(els.at(0).c_str()), atof(els.at(1).c_str()), atof(els.at(2).c_str()));
-            normals.push_back(v);
+            normais.push_back(v);
           }
         }
-        else if (line.substr(0,2).compare("f ") == 0)
+        else if (linha.substr(0,2).compare("f ") == 0)
         {
-          vector<string> str = split(line, 'f');
-          vector<string> els = split(str[1], ' ');
+          vector<string> els = split(linha.substr(2), ' ');
 
           for (int k = 0; k < (int) els.size(); k++)
           {
@@ -65,24 +64,13 @@ void Nave::load_obj(const char* filename, vector<Vector3> &vertices, vector<Vect
 
             if ((int)e.size() > 1)
             {
-              elements.push_back(0);
-              indexed_vertices.push_back(atoi(e.at(0).c_str()) - 1);
-              indexed_normals.push_back(atoi(e.at(2).c_str()) - 1);
+              indices.push_back(0);
+              indices_vertices.push_back(atoi(e.at(0).c_str()) - 1);
+              indices_normais.push_back(atoi(e.at(2).c_str()) - 1);
             }
           }
         }
     }
-
-    // normals.resize(vertices.size(), Vector3(0.0f, 0.0f, 0.0f));
-    // for (int i = 0; i < (int)elements.size(); i+=3)
-    // {
-    //     GLushort ia = elements[i];
-    //     GLushort ib = elements[i+1];
-    //     GLushort ic = elements[i+2];
-
-    //     Vector3 normal = (vertices[ib] - vertices[ia]).produtoExterno(vertices[ic] - vertices[ia]).normalizado();
-    //     normals[ia] = normals[ib] = normals[ic] = normal;
-    // }
 }
 
 
