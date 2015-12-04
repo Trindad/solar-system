@@ -12,6 +12,7 @@ void Nave::init()
 
 void Nave::desenha() {
   glPushMatrix();
+  glTranslatef(200, -200, 200);
   glBegin(GL_TRIANGLES);
   for (int i = 0; i < (int) indices.size(); i++)
   {
