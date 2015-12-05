@@ -5,7 +5,8 @@ class Material
 public:
 	Material();
 	~Material();
-	
+  void aplica();
+
 	string nome;
 	Vector3 ka;//cor ambiente
 	Vector3 kd;//difuso

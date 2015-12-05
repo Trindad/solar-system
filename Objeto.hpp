@@ -5,7 +5,7 @@ class Objeto
 public:
 	Objeto();
 	~Objeto();
-	
+
 	vector<Vector3> vertices;
 	vector<Vector3> normais;
 	vector<GLushort> indices;
@@ -16,5 +16,5 @@ public:
 	*/
 	vector<int> indices_vertices;
 	vector<int> indices_normais;
-	Material material;
+	Material *material;
 };
