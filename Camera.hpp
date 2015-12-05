@@ -18,7 +18,7 @@ public:
 	void rotacionaParaEsquerda();
 	void rotacionaParaDireita();
 	Vector3 rotacionaVetor(Vector3, Vector3, float);
-private:
+
 	Vector3 posicao;//posição da câmera
 	Vector3 lookAt;
 	Vector3 up; // vetor 'pra cima' do gluLookAt

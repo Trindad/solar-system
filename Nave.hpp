@@ -1,4 +1,4 @@
-#include "Vector3.hpp"
+#include "Objeto.hpp"
 
 class Nave
 {
@@ -6,19 +6,11 @@ public:
 	Nave();
 	~Nave();
 
-  void desenha();
+  void desenha(Vector3, Vector3, Vector3);
   void init();
-  void carrega_obj(const char* arquivo);
+  void carregaObjetos(const char* arquivo);
+  vector<Material> leMateriais(const char* arquivo);
   vector<string> &split(const string &s, char delim, vector<string> &elems);
   vector<string> split(const string &s, char delim);
-  vector<Vector3> vertices;
-  vector<Vector3> normais;
-  vector<GLushort> indices;
-
-  /**
-   * Ordem para a criação dos triângulos
-   * de forma correta
-   */
-  vector<int> indices_vertices;
-  vector<int> indices_normais;
+  vector<Objeto> objetos;
 };

@@ -14,12 +14,12 @@
 #include <string>
 #include <sstream>
 #include <sys/types.h>
+using namespace std;
 
 #include <unistd.h>
 
 #include "Textura.hpp"
 
-using namespace std;
 
 #define PI 3.14159265//usado para rotação
 

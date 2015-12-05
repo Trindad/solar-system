@@ -10,6 +10,9 @@
  */
 #include <GL/glew.h>
 #include <GL/glut.h>
+#include <math.h>
+#include <vector>
+#include <iostream>
 
 #include "Camera.hpp"
 #include "Planeta.hpp"
@@ -119,7 +122,7 @@ void init()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_COLOR_MATERIAL);
-	// glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
 	float vAmbientLightBright[4] = {0.05f, 0.05f, 0.05f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, vAmbientLightBright);
@@ -144,7 +147,7 @@ void init()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	// Define angulo de visão e o quão longo a câmera vê
-	gluPerspective(50, 1, 0.1f, 80000);
+	gluPerspective(50, 1, 50.0f, 50000);
 
 	// para desenhar, devemos voltar ao modo do modelo
 	glMatrixMode(GL_MODELVIEW);
@@ -177,13 +180,11 @@ void display(void)
 
 	if (modoDeus) {
 		deus.desenha();
-	}
-	else
-	{
+	} else {
 		cameraNave.desenha();
 	}
 
-	GLfloat lightAmbient1[4] = {0.0f,0.0f,0.0f,1};
+	GLfloat lightAmbient1[4] = {0.0,0.0,0.0,1};
 	GLfloat lightPos1[4] = {0,0.0,0,1};
 	GLfloat lightDiffuse1[4] = {1,1,1,1};
 
@@ -191,15 +192,19 @@ void display(void)
 	glLightfv(GL_LIGHT0,GL_AMBIENT,(GLfloat *) &lightAmbient1);
 	glLightfv(GL_LIGHT0,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(1.0, 1.0, 1.0);
 
 	float timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
-	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000.0f;
+	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000;
   	oldTimeSinceStart = timeSinceStart;
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
+<<<<<<< HEAD
 		planetas[i].setDesenharOrbita(i != 0 && i != 4);
+=======
+		planetas[i].setDesenharOrbita(i > 0);
+>>>>>>> b712076fb1c9c04c72724fb4b1a4bb3d456d0afb
 
 		if (i > 0) {
 			GLfloat di[] = {0.9, 0.9, 0.9, 1.0};
@@ -211,8 +216,8 @@ void display(void)
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
 			planetas[i].desenha(deltaTime);
 		} else {
-			GLfloat di[] = {1, 1, 1, 0.1f};
-			GLfloat ai[] = {1, 1, 1, 0.1f};
+			GLfloat di[] = {1, 1, 1, 0.1};
+			GLfloat ai[] = {1, 1, 1, 0.1};
 			GLfloat em[] = {247.0f/255.0f, 225.0f/255.0f, 56.0f/255,1.0};//emissão de luz do objeto
 
 			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
@@ -237,9 +242,7 @@ void display(void)
 					};
 	anelDeSaturno.desenha(confAnel[2],deltaTime);
 
-	glPushMatrix();
-	nave.desenha(cameraNave.posicao, cameraNave.dir, cameraNave.up);
-	glPopMatrix();
+	nave.desenha();
 
 	glutSwapBuffers();
 	glutPostRedisplay();
@@ -256,7 +259,7 @@ void reshape(int w, int h)
 
 	float aspect = 1.0f*w/h;
 
-	gluPerspective (50,aspect,0.1f,80000);
+	gluPerspective (50,aspect,50.0f,15000.0f );
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -358,7 +361,6 @@ int main ( int argc, char** argv )
 	glutInitWindowSize(600, 600 );
 	glutCreateWindow( "Sistema Solar" );
 	init();
-	nave.init();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutMouseFunc(mouse);
