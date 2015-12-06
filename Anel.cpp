@@ -11,7 +11,17 @@ Anel::~Anel(){}
 
 void Anel::desenha( GLfloat *scale,float deltaTempo)
 {
+  GLfloat di[] = {0.9, 0.9, 0.9, 1.0f};
+  GLfloat ai[] = {1, 1, 1, 1};
+  GLfloat em[] = {0,0,0,1};
+  GLfloat sp[] = {0,0,0,1.0f};
 
+  glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
+  glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
+  glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
+  glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sp);
+  glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0);
+  
   rotacao += deltaTempo * grausPorSegundo;
 
   while (rotacao > 360.0f)

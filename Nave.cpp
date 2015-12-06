@@ -12,7 +12,7 @@ void Nave::init()
 
 void Nave::desenha(Vector3 posicao, Vector3 dir, Vector3 up, float deltaTempo) {
   glDisable(GL_COLOR_MATERIAL);
-  Vector3 pos = posicao + (dir * -10) - (up * 30);
+  Vector3 pos = posicao + (dir * -10) - (up * 15);
   
   glTranslatef(pos.f[0], pos.f[1], pos.f[2]);
 
@@ -23,8 +23,15 @@ void Nave::desenha(Vector3 posicao, Vector3 dir, Vector3 up, float deltaTempo) {
     rotacao -= 360.0f;
   }
   glScalef(5,5,5);
-  glRotatef(rotacao,up.f[0], up.f[1], up.f[2]);
 
+  Vector3 y(0,1,0); 
+  float cos_angulo = acos(up.produtoInterno(dir)/(up.magnitude()*dir.magnitude())) * (180.0f / PI);
+  
+  Vector3 t = dir.produtoExterno(up);
+
+  glRotatef(90 - cos_angulo, t.f[0], t.f[1], t.f[2]);
+  glTranslatef(0, -10, 0);//translaciona para baixo, assim a nave não aparece
+  glRotatef(rotacao,up.f[0], up.f[1], up.f[2]);
 
   for (int k = 0; k < (int) objetos.size(); k++)
   {
@@ -199,4 +206,24 @@ void Nave::leMateriais(const char* arquivo)
           materialAtual->d = atof(linha.substr(2).c_str());
         }
     }
+}
+
+Vector3 Nave::rotacionaVetor(Vector3 u, Vector3 v, float graus) {
+
+  float angulo = graus * PI/180.0f;//transforma de graus para radianos
+
+  float ca = cos(angulo);
+  float sa = sin(angulo);
+
+  Vector3 cross = u.produtoExterno(v);
+
+  float dot = u.produtoInterno(v);
+
+  Vector3 novo;
+
+  novo.f[0] = u.f[0]*ca + cross.f[0]*sa + dot*v.f[0]*(1-ca);
+  novo.f[1] = u.f[1]*ca + cross.f[1]*sa + dot*v.f[1]*(1-ca);
+  novo.f[2] = u.f[2]*ca + cross.f[2]*sa + dot*v.f[2]*(1-ca);
+
+  return novo;
 }
