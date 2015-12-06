@@ -184,12 +184,13 @@ void display(void)
 	}
 
 	GLfloat lightAmbient1[4] = {0.0f,0.0f,0.0f,1};
-	GLfloat lightPos1[4] = {0,0.0,0,1};
-	GLfloat lightDiffuse1[4] = {0.8,0.8,0.8,1};
+	GLfloat lightPos1[4] = {1.0f,1.0f,1.0f,1};
+	GLfloat lightDiffuse1[4] = {1.0f,1.0f,1.0f,1.0f};
 
 	glLightfv(GL_LIGHT0,GL_POSITION,(GLfloat *) &lightPos1);
 	glLightfv(GL_LIGHT0,GL_AMBIENT,(GLfloat *) &lightAmbient1);
 	glLightfv(GL_LIGHT0,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
+
 
 	// glColor3f(1.0f, 1.0f, 1.0f);
 
@@ -201,23 +202,32 @@ void display(void)
 	{
 		planetas[i].setDesenharOrbita(i != 0 && i != 4);
 
+		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0);
+		
 		if (i > 0) {
-			GLfloat di[] = {0.9, 0.9, 0.9, 1.0};
+			GLfloat di[] = {0.9, 0.9, 0.9, 1.0f};
 			GLfloat ai[] = {0, 0, 0, 1};
 			GLfloat em[] = {0,0,0,0};
+			GLfloat sp[] = {0,0,0,1.0f};
 
 			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sp);
 			planetas[i].desenha(deltaTime);
 		} else {
-			GLfloat di[] = {1, 1, 1, 0.1f};
-			GLfloat ai[] = {1, 1, 1, 0.1f};
-			GLfloat em[] = {247.0f/255.0f, 225.0f/255.0f, 56.0f/255,1.0};//emissão de luz do objeto
+			GLfloat di[] = {1.5f, 1.5f, 1.5f, 0.9f};
+			GLfloat ai[] = {1.0f, 1.0f, 1.0f, 1.0f};
+			GLfloat em[] = {247.0f/255.0f, 225.0f/255.0f, 56.0f/255,1.0f};//emissão de luz do objeto
+			GLfloat sp[] = {1.0f, 1.0f, 1.0f,0.1f};
+			// GLfloat sh[] = {1.0f, 1.0f, 1.0f,100.0f};
 
+			glShadeModel(GL_SMOOTH);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
+			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sp);
+			
 			// glDisable(GL_LIGHTING);
 			planetas[i].desenha(deltaTime);
 			// glEnable(GL_LIGHTING);
