@@ -18,6 +18,9 @@ public:
 	void rotacionaParaEsquerda();
 	void rotacionaParaDireita();
 	Vector3 rotacionaVetor(Vector3, Vector3, float);
+	void limita();
+	float min(float, float);
+	float max(float, float);
 
 	Vector3 posicao;//posição da câmera
 	Vector3 lookAt;

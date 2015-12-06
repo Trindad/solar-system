@@ -48,8 +48,16 @@ void Camera::zoom(int pos, int x, int z)
 
 	this->posicao.f[0] = this->lookAt.f[0] + 1;
 	this->posicao.f[2] = this->lookAt.f[2] + 1;
+}
 
-	
+void Camera::limita()
+{
+	int limiteHorizontal = 4900;
+	int limiteVertical = 2500;
+
+	posicao.f[0] = max(-limiteHorizontal, min(limiteHorizontal, posicao.f[0]));
+	posicao.f[1] = max(-limiteVertical, min(limiteVertical, posicao.f[1]));
+	posicao.f[2] = max(-limiteHorizontal, min(limiteHorizontal, posicao.f[2]));
 }
 
 void Camera::desenha()
@@ -68,18 +76,21 @@ void Camera::desenha()
 void Camera::moveFrente()
 {
 	this->posicao += dir * 8.0f;
+	limita();
 	this->lookAt = posicao + dir;
 }
 
 void Camera::moveEsquerda()
 {
 	this->posicao = this->posicao - dir.produtoExterno(up)*8.0f;
+	limita();
 	this->lookAt = posicao + dir;
 }
 
 void Camera::moveDireita()
 {
 	this->posicao += (dir.produtoExterno(up)*8.0f);
+	limita();
 	this->lookAt = posicao + dir;
 }
 
@@ -137,4 +148,14 @@ Vector3 Camera::rotacionaVetor(Vector3 u, Vector3 v, float graus) {
   novo.f[2] = u.f[2]*ca + cross.f[2]*sa + dot*v.f[2]*(1-ca);
 
   return novo;
+}
+
+float Camera::min(float a, float b)
+{
+	return a >= b ? b : a;
+}
+
+float Camera::max(float a, float b)
+{
+	return a >= b ? a : b;
 }

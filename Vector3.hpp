@@ -7,8 +7,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <iomanip> 
-
+#include <iomanip>
+#include <algorithm>
 #include <malloc.h>
 #include <fcntl.h>
 #include <string>
