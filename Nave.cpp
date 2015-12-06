@@ -11,15 +11,21 @@ void Nave::init()
 }
 
 void Nave::desenha(Vector3 posicao, Vector3 dir, Vector3 up) {
+  glDisable(GL_COLOR_MATERIAL);
   Vector3 pos = posicao + (dir * 6) - (up * 7);
   // glPushMatrix();
   glTranslatef(pos.f[0], pos.f[1], pos.f[2]);
-  glBindTexture(GL_TEXTURE_2D, 0);
+  // glBindTexture(GL_TEXTURE_2D, 0);
 
   for (int k = 0; k < (int) objetos.size(); k++)
   {
     if (objetos[k]->material) {
-      // cout<<" "<<objetos[k]->material->nome<<endl;
+      if (objetos[k]->material->d < 1) {
+        glDepthMask(GL_FALSE);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      }
+
       objetos[k]->material->aplica();
     }
 
@@ -30,9 +36,15 @@ void Nave::desenha(Vector3 posicao, Vector3 dir, Vector3 up) {
       glVertex3f(vertices[objetos[k]->indices_vertices[i]].f[0], vertices[objetos[k]->indices_vertices[i]].f[1], vertices[objetos[k]->indices_vertices[i]].f[2]);
     }
     glEnd();
+
+    if (objetos[k]->material && objetos[k]->material->d < 1) {
+      glDisable(GL_BLEND);
+      glDepthMask(GL_TRUE);
+    }
   }
 
   // glPopMatrix();
+  glEnable(GL_COLOR_MATERIAL);
 }
 
 void Nave::carregaObjetos(const char* arquivo)
