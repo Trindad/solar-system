@@ -119,7 +119,8 @@ void init()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_COLOR_MATERIAL);
-	// glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
 	float vAmbientLightBright[4] = {0.05f, 0.05f, 0.05f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, vAmbientLightBright);
@@ -185,13 +186,13 @@ void display(void)
 
 	GLfloat lightAmbient1[4] = {0.0f,0.0f,0.0f,1};
 	GLfloat lightPos1[4] = {0,0.0,0,1};
-	GLfloat lightDiffuse1[4] = {1,1,1,1};
+	GLfloat lightDiffuse1[4] = {0.8,0.8,0.8,1};
 
 	glLightfv(GL_LIGHT0,GL_POSITION,(GLfloat *) &lightPos1);
 	glLightfv(GL_LIGHT0,GL_AMBIENT,(GLfloat *) &lightAmbient1);
 	glLightfv(GL_LIGHT0,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
 
-	glColor3f(1.0f, 1.0f, 1.0f);
+	// glColor3f(1.0f, 1.0f, 1.0f);
 
 	float timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
 	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000.0f;

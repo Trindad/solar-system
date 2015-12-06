@@ -1,4 +1,6 @@
 #include "Objeto.hpp"
 
-Objeto::Objeto(){}
+Objeto::Objeto(){
+	this->indices = 0;
+}
 Objeto::~Objeto(){}

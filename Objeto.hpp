@@ -6,9 +6,8 @@ public:
 	Objeto();
 	~Objeto();
 
-	vector<Vector3> vertices;
-	vector<Vector3> normais;
-	vector<GLushort> indices;
+	
+	int indices;
 
 	/**
 	* Ordem para a criação dos triângulos

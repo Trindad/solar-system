@@ -5,8 +5,8 @@ Material::~Material(){}
 
 void Material::aplica()
 {
-  // glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ka.f);
-  // glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, kd.f);
-  // glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, ks.f);
-  // glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, ns);
+  // glMaterialfv(GL_FRONT, GL_AMBIENT, ka.vec4());
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, kd.vec4());
+  // glMaterialfv(GL_FRONT, GL_SPECULAR, ks.vec4());
+  // glMaterialf(GL_FRONT, GL_SHININESS, ns);
 }

@@ -61,3 +61,15 @@ float Vector3::produtoInterno(const Vector3 &v)
 {
 	return f[0]*v.f[0] + f[1]*v.f[1] + f[2]*v.f[2];
 }
+
+
+GLfloat *Vector3::vec4(){
+	GLfloat *vector4 = new GLfloat[4];
+
+	vector4[0] = f[0];
+	vector4[1] = f[1];
+	vector4[2] = f[2];
+	vector4[3] = 1.0f;
+
+	return vector4;
+}

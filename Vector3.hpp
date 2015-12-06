@@ -44,6 +44,7 @@ public:
 
 	Vector3 produtoExterno(const Vector3 &);
 	float produtoInterno(const Vector3 &);
+	GLfloat *vec4();
 };
 
 #endif

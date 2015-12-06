@@ -14,4 +14,6 @@ public:
   vector<string> split(const string &s, char delim);
   vector<Objeto*> objetos;
   vector<Material*> materiais;
+  vector<Vector3> vertices;
+  vector<Vector3> normais;
 };

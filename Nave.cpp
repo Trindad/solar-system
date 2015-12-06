@@ -11,29 +11,28 @@ void Nave::init()
 }
 
 void Nave::desenha(Vector3 posicao, Vector3 dir, Vector3 up) {
-  Vector3 pos = posicao + (dir * 2) - (up * 7);
-  glPushMatrix();
+  Vector3 pos = posicao + (dir * 6) - (up * 7);
+  // glPushMatrix();
   glTranslatef(pos.f[0], pos.f[1], pos.f[2]);
-
-  // cout << "Objetos " << (int) objetos.size() << endl;
+  glBindTexture(GL_TEXTURE_2D, 0);
 
   for (int k = 0; k < (int) objetos.size(); k++)
   {
     if (objetos[k]->material) {
+      // cout<<" "<<objetos[k]->material->nome<<endl;
       objetos[k]->material->aplica();
     }
 
     glBegin(GL_TRIANGLES);
-    // cout << "INDICES " << k << " : " << (int) objetos[k]->indices.size() << endl;
-    for (int i = 0; i < (int) objetos[k]->indices.size(); i++)
+    for (int i = 0; i < objetos[k]->indices; i++)
     {
-      glNormal3f(objetos[k]->normais[objetos[k]->indices_normais[i]].f[0], objetos[k]->normais[objetos[k]->indices_normais[i]].f[1], objetos[k]->normais[objetos[k]->indices_normais[i]].f[2]);
-      glVertex3f(objetos[k]->vertices[objetos[k]->indices_vertices[i]].f[0], objetos[k]->vertices[objetos[k]->indices_vertices[i]].f[1], objetos[k]->vertices[objetos[k]->indices_vertices[i]].f[2]);
+      glNormal3f(normais[objetos[k]->indices_normais[i]].f[0], normais[objetos[k]->indices_normais[i]].f[1], normais[objetos[k]->indices_normais[i]].f[2]);
+      glVertex3f(vertices[objetos[k]->indices_vertices[i]].f[0], vertices[objetos[k]->indices_vertices[i]].f[1], vertices[objetos[k]->indices_vertices[i]].f[2]);
     }
     glEnd();
   }
 
-  glPopMatrix();
+  // glPopMatrix();
 }
 
 void Nave::carregaObjetos(const char* arquivo)
@@ -66,7 +65,7 @@ void Nave::carregaObjetos(const char* arquivo)
 
           for (int j = 0; j < (int) materiais.size(); j++)
           {
-            if (materiais[j]->nome.compare(nome) == 0) {
+            if (materiais[j]->nome == nome) {
               objetoAtual->material = materiais[j];
             }
           }
@@ -78,7 +77,7 @@ void Nave::carregaObjetos(const char* arquivo)
             GLfloat _a, _b, _c;
             s >> _a; s >> _b; s >> _c;
             Vector3 v(_a,_b,_c);
-            objetoAtual->vertices.push_back(v);
+            vertices.push_back(v);
         }
         else if (linha.substr(0,3).compare("vn ") == 0)
         {
@@ -86,7 +85,7 @@ void Nave::carregaObjetos(const char* arquivo)
 
           if ((int)els.size() > 1) {
             Vector3 v(atof(els.at(0).c_str()), atof(els.at(1).c_str()), atof(els.at(2).c_str()));
-            objetoAtual->normais.push_back(v);
+            normais.push_back(v);
           }
         }
         else if (linha.substr(0,2).compare("f ") == 0)
@@ -99,7 +98,7 @@ void Nave::carregaObjetos(const char* arquivo)
 
             if ((int)e.size() > 1)
             {
-              objetoAtual->indices.push_back(0);
+              objetoAtual->indices++;
               objetoAtual->indices_vertices.push_back(atoi(e.at(0).c_str()) - 1);
               objetoAtual->indices_normais.push_back(atoi(e.at(2).c_str()) - 1);
             }
