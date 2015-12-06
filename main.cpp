@@ -223,7 +223,6 @@ void display(void)
 			GLfloat ai[] = {1.0f, 1.0f, 1.0f, 1.0f};
 			GLfloat em[] = {247.0f/255.0f, 225.0f/255.0f, 56.0f/255,1.0f};//emissão de luz do objeto
 			GLfloat sp[] = {1.0f, 1.0f, 1.0f,0.1f};
-			// GLfloat sh[] = {1.0f, 1.0f, 1.0f,100.0f};
 
 			glShadeModel(GL_SMOOTH);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
@@ -250,7 +249,7 @@ void display(void)
 	anelDeSaturno.desenha(confAnel[2],deltaTime);
 
 	glPushMatrix();
-	nave.desenha(cameraNave.posicao, cameraNave.dir, cameraNave.up);
+	nave.desenha(cameraNave.posicao, cameraNave.dir, cameraNave.up,deltaTime);
 	glPopMatrix();
 
 	glutSwapBuffers();

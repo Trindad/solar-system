@@ -10,12 +10,21 @@ void Nave::init()
   carregaObjetos("nave.obj");
 }
 
-void Nave::desenha(Vector3 posicao, Vector3 dir, Vector3 up) {
+void Nave::desenha(Vector3 posicao, Vector3 dir, Vector3 up, float deltaTempo) {
   glDisable(GL_COLOR_MATERIAL);
-  Vector3 pos = posicao + (dir * 6) - (up * 7);
-  // glPushMatrix();
+  Vector3 pos = posicao + (dir * -10) - (up * 30);
+  
   glTranslatef(pos.f[0], pos.f[1], pos.f[2]);
-  // glBindTexture(GL_TEXTURE_2D, 0);
+
+  rotacao = rotacao + deltaTempo * 20.0f;
+
+  while (this->rotacao > 360.0f)
+  {
+    rotacao -= 360.0f;
+  }
+  glScalef(5,5,5);
+  glRotatef(rotacao,up.f[0], up.f[1], up.f[2]);
+
 
   for (int k = 0; k < (int) objetos.size(); k++)
   {

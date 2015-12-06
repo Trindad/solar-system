@@ -105,7 +105,7 @@ void Camera::rotacionaParaEsquerda()
 void Camera::rotacionaParaDireita()
 {
 	dir = rotacionaVetor(dir,up,1.0f);//rotaciona 1 graus
-
+	
 	this->lookAt = posicao + dir;
 }
 

@@ -6,7 +6,7 @@ public:
 	Nave();
 	~Nave();
 
-  void desenha(Vector3, Vector3, Vector3);
+  void desenha(Vector3, Vector3, Vector3, float);
   void init();
   void carregaObjetos(const char* arquivo);
   void leMateriais(const char* arquivo);
@@ -16,4 +16,5 @@ public:
   vector<Material*> materiais;
   vector<Vector3> vertices;
   vector<Vector3> normais;
+  float rotacao;//acumula rotação da nave
 };

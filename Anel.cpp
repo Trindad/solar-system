@@ -41,7 +41,7 @@ void Anel::desenha( GLfloat *scale,float deltaTempo)
   glRotatef(10, 1, 0, 0);
   glRotatef(90, 1, 0, 0);
 	glScalef(scale[0], scale[1], scale[2]);
-	desenhaTorus(this->innerRadius, this->outerRadius,30, 30, this->texture);
+	desenhaTorus(this->innerRadius, this->outerRadius,100, 100, this->texture);
 	glPopMatrix();
 
   glPopMatrix();
