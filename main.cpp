@@ -18,6 +18,7 @@
 #include "Nave.hpp"
 
  #define ESCALA_PLANETAS 2
+ #define VELOCIDADE_ORBITAL 0.5f
 
 vector<Planeta> planetas;
 Galaxia galaxia(13000);//insere textura na galaxia
@@ -46,73 +47,73 @@ void init()
 	planetas.push_back(sol);
 
 	Planeta mercurio( ((4866*1200)/1391900)*ESCALA_PLANETAS);
-	mercurio.setPosicao(Vector3(-1500,0,0));
-	mercurio.setGrausPorSegundo(20);
+	mercurio.setPosicao(Vector3(-1400 - 57.9f,0,0));
+	mercurio.setGrausPorSegundo(40);
 	mercurio.setTemOrbita(true);
-	mercurio.setOrbita(new Orbita(5795*orbita, Vector3(0,0,0), 1500));
+	mercurio.setOrbita(new Orbita(47.89*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 57.9f + (((4866*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(mercurio);
 
 	Planeta venus(((12106*1200)/1391900)*ESCALA_PLANETAS);
-	venus.setPosicao(Vector3(-1500,0,0));
-	venus.setGrausPorSegundo(20);
+	venus.setPosicao(Vector3(-1400 - 108.2f,0,0));
+	venus.setGrausPorSegundo(-20);
 	venus.setTemOrbita(true);
-	venus.setOrbita(new Orbita(10811*orbita, Vector3(0,0,0), 1700));
+	venus.setOrbita(new Orbita(35.03*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 118.2f + (((12106*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(venus);
 
 	Planeta terra(((12742*1200)/1391900)*ESCALA_PLANETAS);
-	terra.setPosicao(Vector3(-2100,0,0));
-	terra.setGrausPorSegundo(20);
+	terra.setPosicao(Vector3(-1400 - 149.6f,0,0));
+	terra.setGrausPorSegundo(110);
 	terra.setTemOrbita(true);
-	terra.setOrbita(new Orbita(14957*orbita, Vector3(0,0,0), 2100));
+	terra.setOrbita(new Orbita(29.79*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 189.6f + (((12742*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(terra);
-
 
 	Planeta lua((((12742*1200)/1391900) * 0.4)*ESCALA_PLANETAS);
 	lua.setPosicao(Vector3(-2250,0,0));
-	lua.setGrausPorSegundo(20);
+	lua.setGrausPorSegundo(0);
+	lua.setTemRotacao(false);
 	lua.setTemOrbita(true);
-	lua.setOrbita(new Orbita(14957*orbita, terra.posicao, 20*ESCALA_PLANETAS));
+	lua.setOrbita(new Orbita(15, terra.posicao, 20*ESCALA_PLANETAS));
 	planetas.push_back(lua);
 
 	Planeta marte(((6760*1200)/1391900)*ESCALA_PLANETAS);
-	marte.setPosicao(Vector3(-2900,0,0));
-	marte.setGrausPorSegundo(20);
+	marte.setPosicao(Vector3(-1400 - 227.9f,0,0));
+	marte.setGrausPorSegundo(95);
 	marte.setTemOrbita(true);
-	marte.setOrbita(new Orbita(22784*orbita, Vector3(0,0,0), 2900));
+	marte.setOrbita(new Orbita(24.13*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 297.9f + (((6760*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(marte);
 
 	Planeta jupiter(((142984*1200)/1391900)*ESCALA_PLANETAS);
-	jupiter.setPosicao(Vector3(-3500,0,0));
-	jupiter.setGrausPorSegundo(20);
+	jupiter.setPosicao(Vector3(-1400 - 778.3f,0,0));
+	jupiter.setGrausPorSegundo(190);
 	jupiter.setTemOrbita(true);
-	jupiter.setOrbita(new Orbita(77814*orbita, Vector3(0,0,0), 3500));
+	jupiter.setOrbita(new Orbita(13.6*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 778.3f + (((142984*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(jupiter);
 
 	Planeta saturno(((116438*1200)/1391900)*ESCALA_PLANETAS);
-	saturno.setPosicao(Vector3(-4000,0,0));
-	saturno.setGrausPorSegundo(0);
+	saturno.setPosicao(Vector3(-1400 - 1427.9f,0,0));
+	saturno.setGrausPorSegundo(190);
 	saturno.setTemOrbita(true);//
-	saturno.setOrbita(new Orbita(142700*orbita, Vector3(0,0,0), 4000));
+	saturno.setOrbita(new Orbita(9.64*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 1427.9f + (((116438*1200)/1391900)*ESCALA_PLANETAS) + 300));
 	planetas.push_back(saturno);
 
-	anelDeSaturno.setPosicao(Vector3(-4000,0,0));
+	anelDeSaturno.setPosicao(Vector3(-1400 - 1427.9f,0,0));
 	anelDeSaturno.setGrausPorSegundo(0);
 	anelDeSaturno.setTemOrbita(true);//142700*orbita
-	anelDeSaturno.setOrbita(new Orbita(142700*orbita, Vector3(0,0,0), 4000));
+	anelDeSaturno.setOrbita(new Orbita(9.64*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 1427.9f + (((116438*1200)/1391900)*ESCALA_PLANETAS) + 300));
 
 	Planeta uranus(((46940*1200)/1391900)*ESCALA_PLANETAS);
-	uranus.setPosicao(Vector3(-4500,0,0));
-	uranus.setGrausPorSegundo(20);
+	uranus.setPosicao(Vector3(-1400 - 2871.9f,0,0));
+	uranus.setGrausPorSegundo(-150);
 	uranus.setTemOrbita(true);
-	uranus.setOrbita(new Orbita(287030*orbita, Vector3(0,0,0), 4500));
+	uranus.setOrbita(new Orbita(6.81*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 2871.9f + (((46940*1200)/1391900)*ESCALA_PLANETAS) + 300));
 	planetas.push_back(uranus);
 
-	Planeta neturno(((45432*1200)/1391900)*ESCALA_PLANETAS);
-	neturno.setPosicao(Vector3(-5000,0,0));
-	neturno.setGrausPorSegundo(20);
-	neturno.setTemOrbita(true);
-	neturno.setOrbita(new Orbita(449990*orbita, Vector3(0,0,0), 5000));
-	planetas.push_back(neturno);
+	Planeta netuno(((45432*1200)/1391900)*ESCALA_PLANETAS);
+	netuno.setPosicao(Vector3(-1400 - 4497.9f,0,0));
+	netuno.setGrausPorSegundo(140);
+	netuno.setTemOrbita(true);
+	netuno.setOrbita(new Orbita(5.43*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 4497.9f + (((45432*1200)/1391900)*ESCALA_PLANETAS)));
+	planetas.push_back(netuno);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClearDepth(1.0f);
@@ -198,15 +199,16 @@ void display(void)
 	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000.0f;
   	oldTimeSinceStart = timeSinceStart;
 
+
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
 		planetas[i].setDesenharOrbita(i != 0 && i != 4);
 
 		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0);
-		
+
 		if (i > 0) {
 			GLfloat di[] = {0.9, 0.9, 0.9, 1.0f};
-			GLfloat ai[] = {0, 0, 0, 1};
+			GLfloat ai[] = {1, 1, 1, 1};
 			GLfloat em[] = {0,0,0,0};
 			GLfloat sp[] = {0,0,0,1.0f};
 
@@ -214,6 +216,7 @@ void display(void)
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sp);
+
 			planetas[i].desenha(deltaTime);
 		} else {
 			GLfloat di[] = {1.5f, 1.5f, 1.5f, 0.9f};
@@ -227,13 +230,12 @@ void display(void)
 			glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, di);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sp);
-			
-			// glDisable(GL_LIGHTING);
+
 			planetas[i].desenha(deltaTime);
-			// glEnable(GL_LIGHTING);
 		}
 
 	}
+
 
 	glDisable(GL_LIGHTING);
 	galaxia.desenha();
