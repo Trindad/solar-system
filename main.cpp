@@ -8,7 +8,6 @@
  * Alunos: Silvana Trindade e Maurício André Cinelli
  * *********************************************************
  */
-#include <GL/glew.h>
 #include <GL/glut.h>
 
 #include "Camera.hpp"
@@ -24,7 +23,6 @@ vector<Planeta> planetas;
 Galaxia galaxia(13000);//insere textura na galaxia
 Anel anelDeSaturno(80*ESCALA_PLANETAS, 300*ESCALA_PLANETAS);//anel de saturno entra com o raio interno e externo do torus
 float oldTimeSinceStart = 0;
-// Camera deus(Vector3(0.1,8000,0.1));
 Camera deus(Vector3(100,10000,0.1));
 Camera cameraNave(Vector3(1800,0,1800));
 bool modoDeus = true;
@@ -41,7 +39,7 @@ void init()
 	 * e velocidade de rotação se rotacionar
 	 */
 	Planeta sol(1200,false);//tamanho real 1391900 km (diam)
-	sol.setPosicao(Vector3(0,0,0));
+	sol.setPosicao(Vector3(0,0,-500));
 	sol.setTemRotacao(false);
 	sol.setTemOrbita(false);
 	planetas.push_back(sol);
@@ -115,7 +113,7 @@ void init()
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
-	float vAmbientLightBright[4] = {0.05f, 0.05f, 0.05f, 1.0f};
+	float vAmbientLightBright[] = {0.05f, 0.05f, 0.05f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, vAmbientLightBright);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
 
@@ -144,19 +142,20 @@ void init()
 	glLoadIdentity();
 
 	glEnable(GL_TEXTURE_2D);
-
-	planetas[0].loadTexture( "texture_sun.jpg" );//adicionando textura do sol
-  	planetas[1].loadTexture("texture_mercury.jpg");//adiciona textura para mercurio
-	planetas[2].loadTexture("texture_venus_surface.jpg");//adiciona textura para venus
-	planetas[3].loadTexture("texture_earth_clouds.jpg");//adiciona textura para terra
-	// planetas[4].loadTexture("texture_moon.jpg");//adiciona textura para lua
-	planetas[4].loadTexture("texture_mars.jpg");//adiciona textura para marte
-	planetas[5].loadTexture("texture_jupiter.jpg");//adiciona textura para jupiter
-	planetas[6].loadTexture("texture_saturn.jpg");//adiciona textura para saturno
-	planetas[7].loadTexture("texture_uranus.jpg");//adiciona textura para uranu
-	planetas[8].loadTexture("texture_neptune.jpg");//adiciona textura para Neturno
-	anelDeSaturno.loadTexture("texture_saturn_ring.png");//anel de saturno
-	galaxia.loadTexture("large_medium_to_low_density_starfield_5400x3600_by_garryts-d7tni3c.jpg");//adiciona textura a galaxia
+	/**
+	 * Carrega texturas
+	 */
+	planetas[0].carregaTextura( "texture_sun.jpg" );//adicionando textura do sol
+  	planetas[1].carregaTextura("texture_mercury.jpg");//adiciona textura para mercurio
+	planetas[2].carregaTextura("texture_venus_surface.jpg");//adiciona textura para venus
+	planetas[3].carregaTextura("texture_earth_clouds.jpg");//adiciona textura para terra
+	planetas[4].carregaTextura("texture_mars.jpg");//adiciona textura para marte
+	planetas[5].carregaTextura("texture_jupiter.jpg");//adiciona textura para jupiter
+	planetas[6].carregaTextura("texture_saturn.jpg");//adiciona textura para saturno
+	planetas[7].carregaTextura("texture_uranus.jpg");//adiciona textura para uranu
+	planetas[8].carregaTextura("texture_neptune.jpg");//adiciona textura para Neturno
+	anelDeSaturno.carregaTextura("texture_saturn_ring.png");//anel de saturno
+	galaxia.carregaTextura("large_medium_to_low_density_starfield_5400x3600_by_garryts-d7tni3c.jpg");//adiciona textura a galaxia
 }
 
 /**
@@ -168,6 +167,9 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	/**
+	 * Verifica modulo de uso da câmera 
+	 */
 	if (modoDeus) {
 		deus.desenha();
 	}
@@ -177,15 +179,13 @@ void display(void)
 	}
 
 	GLfloat lightAmbient1[4] = {0.0f,0.0f,0.0f,1};
-	GLfloat lightPos1[4] = {1.0f,1.0f,1.0f,1};
+	GLfloat lightPos1[4] = {1.0f,1.0f,-500.0f,1};
 	GLfloat lightDiffuse1[4] = {1.0f,1.0f,1.0f,1.0f};
 
 	glLightfv(GL_LIGHT0,GL_POSITION,(GLfloat *) &lightPos1);
 	glLightfv(GL_LIGHT0,GL_AMBIENT,(GLfloat *) &lightAmbient1);
 	glLightfv(GL_LIGHT0,GL_DIFFUSE,(GLfloat *) &lightDiffuse1);
 
-
-	// glColor3f(1.0f, 1.0f, 1.0f);
 
 	float timeSinceStart = glutGet(GLUT_ELAPSED_TIME);
 	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000.0f;
@@ -210,7 +210,9 @@ void display(void)
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sp);
 
 			planetas[i].desenha(deltaTime);
-		} else {
+		} 
+		else 
+		{
 			GLfloat di[] = {1.5f, 1.5f, 1.5f, 0.9f};
 			GLfloat ai[] = {1.0f, 1.0f, 1.0f, 1.0f};
 			GLfloat em[] = {247.0f/255.0f, 225.0f/255.0f, 56.0f/255,1.0f};//emissão de luz do objeto
@@ -224,7 +226,6 @@ void display(void)
 
 			planetas[i].desenha(deltaTime);
 		}
-
 	}
 
 
@@ -233,12 +234,8 @@ void display(void)
 	glEnable(GL_LIGHTING);
 
 	//Configurações do anel
-	GLfloat confAnel[][3] = {
-					{400.0f,0.0f,0.0f},//posição
-					{400.0f,0.0f,0.0f},//rotação
-					{0.3f,0.3f,0.03f}//escala
-					};
-	anelDeSaturno.desenha(confAnel[2],deltaTime);
+	GLfloat confAnel[] = {0.3f,0.3f,0.03f};//escala
+	anelDeSaturno.desenha(confAnel,deltaTime);
 
 	glPushMatrix();
 	nave.desenha(cameraNave.posicao, cameraNave.dir, cameraNave.up,deltaTime);
@@ -286,6 +283,9 @@ Vector3 retornaCoordenadasMundo(int x, int y)
 	return Vector3(posX, posY, posZ);
 }
 
+/**
+ * Funções da câmera no modo Deus para dar zoom
+ */
 void mouse(int button, int state, int x, int y)
 {
 	// 3 rolou pra cima, 4 rolou pra baixo
@@ -297,14 +297,14 @@ void mouse(int button, int state, int x, int y)
 		}
 
 		Vector3 coords = retornaCoordenadasMundo(x, y);
-		// GLint viewport[4];
-		// glGetIntegerv(GL_VIEWPORT, viewport);
 
 		deus.zoom(button == 3 ? -1 : 1,coords.f[0],coords.f[2]);
-		// deus.zoom(button == 3 ? -1 : 1,x,viewport[3] - y);
 	}
 }
 
+/**
+ * Funções de rotação da câmera da nave
+ */
 void keyboard(unsigned char key, int x, int y)
 {
 	if (key == 99)
@@ -332,11 +332,16 @@ void keyboard(unsigned char key, int x, int y)
 	}
 }
 
+/**
+ * Funções de movimento da câmera da nave : frente, esquerda, direita
+ */
 void specialKeyboard(int key, int x, int y)
 {
 	if (modoDeus) {
 		return;
-	} else {
+	} 
+	else 
+	{
 		switch(key) {
 			case GLUT_KEY_UP:
 				cameraNave.moveFrente();
@@ -358,14 +363,14 @@ int main ( int argc, char** argv )
 	glutInit( &argc, argv );
 
 	glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize(600, 600 );
+	glutInitWindowSize(1100, 800 );
 	glutCreateWindow( "Sistema Solar" );
 	init();
 	nave.init();
 	glutDisplayFunc(display);
-	glutReshapeFunc(reshape);
-	glutMouseFunc(mouse);
-	glutKeyboardFunc(keyboard);
+	glutReshapeFunc(reshape);//redimensiona janela
+	glutMouseFunc(mouse);//função mouse para câmera no modo Deus
+	glutKeyboardFunc(keyboard);//função teclado para câmera no modo nave
 	glutSpecialFunc(specialKeyboard);
 
 	glutMainLoop();

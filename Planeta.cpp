@@ -2,23 +2,30 @@
 
 Planeta::Planeta(int r, bool lua)
 {
-  raio = r;
+  raio = r;//recebe o raio da esfera
   grausPorSegundo = 180.0f;
   desenharOrbita = true;
   temRotacao = true;
-  temLua = lua;
+  temLua = lua;//diz se planeta terá lua
 
+  /**
+   * Carrega textura caso planeta tenha lua
+   */
   if (lua == true)
   {
     orbita_lua = 0;
-    texturaLua = Textura::loadTexture("texture_moon.jpg");
+    texturaLua = Textura::carregaTextura("texture_moon.jpg");
   }
 }
 
-Planeta::~Planeta()
-{}
+Planeta::~Planeta(){}
 
-void Planeta::desenhaLua(float x, float y, float deltaTempo)
+/**
+ * Desenha lua 
+ * Insere a sua textura
+ * Calcula a rotação 
+ */
+void Planeta::desenhaLua(float x, float z, float deltaTempo)
 {
   glPushMatrix();
   glBindTexture (GL_TEXTURE_2D, texturaLua);
@@ -39,6 +46,11 @@ void Planeta::desenhaLua(float x, float y, float deltaTempo)
     this->orbita_lua -= 360.0f;
   }
 
+  /**
+   * Se passar muito tempo o laço 
+   * faz com que o valor fique entre
+   * 0 e 360.
+   */
   rotacao_lua += deltaTempo * -30.0f;
 
   while (rotacao_lua > 360.0f)
@@ -46,28 +58,35 @@ void Planeta::desenhaLua(float x, float y, float deltaTempo)
     rotacao_lua -= 360.0f;
   }
 
-  float moon_x = x + (raio+15) * cos(orbita_lua / 180.0f * PI);
-  float moon_y = y + (raio+15) * sin(orbita_lua / 180.0f * PI)*1.5f;
-  glTranslatef(moon_x, 0,moon_y);
+  /**
+   * Calcula a próxima posição pela órbita
+   */
+  float lua_x = x + (raio+15) * cos(orbita_lua / 180.0f * PI);
+  float lua_z = z + (raio+15) * sin(orbita_lua / 180.0f * PI)*1.5f;
+  
+  glTranslatef(lua_x, 0,lua_z);//faz translação com base na terra
   glRotatef(rotacao_lua,0,1,0);
   gluSphere(esfera, raio*0.4f,50, 50);
 
-  glDisable(GL_TEXTURE_GEN_S);
-  glDisable(GL_TEXTURE_GEN_T);
   glPopMatrix();
 }
 
 void Planeta::desenha(float deltaTempo)
 {
-  float x,y;
+  float x = 0.0f, z = 0.0f;
 
   rotacao += deltaTempo * grausPorSegundo;
-
+  /**
+   * Se passar muito tempo o laço 
+   * faz com que o valor fique entre
+   * 0 e 360.
+   */
   while (this->rotacao > 360.0f)
   {
     this->rotacao -= 360.0f;
   }
 
+  //verifica se tem órbita para desenhar trajeto
   if (this->temOrbita == true && desenharOrbita == true)
   {
     this->orbita->desenha();
@@ -76,27 +95,31 @@ void Planeta::desenha(float deltaTempo)
   glPushMatrix();
   glBindTexture (GL_TEXTURE_2D, this->texture);
 
+  /**
+   * Atualiza orbita com base no deltaTempo
+   * e calcula os valores de x e z para a transladar
+   */
   if (this->temOrbita == true)
   {
     this->orbita->atualiza(deltaTempo);
-    x = this->orbita->getRaio() * cos(this->orbita->getRotacao() / 180.0 * PI);
-    y = this->orbita->getRaio() * sin(this->orbita->getRotacao() / 180.0 * PI)*1.5f;
-    // glTranslatef(this->orbita->getCentro().f[0],posicao.f[1],posicao.f[2]);
-    glTranslatef(x, 0, y);
-    // glTranslatef(-this->orbita->getRaio(),0,0);
 
+    x = this->orbita->getRaio() * cos(this->orbita->getRotacao() / 180.0 * PI);
+    z = this->orbita->getRaio() * sin(this->orbita->getRotacao() / 180.0 * PI)*1.5f;
+    
+    glTranslatef(x, 0, z);
   }
   else
   {
     glTranslatef(posicao.f[0],posicao.f[1],posicao.f[2]);
   }
 
+  //rotaciona planeta
   if (temRotacao == true)
   {
     glRotatef(rotacao, 0, 1, 0);
   }
 
-  glRotatef(90,1.0f,0.0f,0.0f);
+  glRotatef(90,1.0f,0.0f,0.0f);//rotaciona para textura ficar certa nos polos dos planetas
 
   GLUquadricObj  *esfera = gluNewQuadric();
 
@@ -108,15 +131,16 @@ void Planeta::desenha(float deltaTempo)
   gluQuadricOrientation(esfera,GLU_OUTSIDE);
   gluQuadricTexture(esfera,GL_TRUE);
 
-  gluSphere(esfera, raio,50, 50);
-
-  glDisable(GL_TEXTURE_GEN_S);
-  glDisable(GL_TEXTURE_GEN_T);
+  gluSphere(esfera, raio,100, 100);//desenha planeta
 
   glPopMatrix();
+
+  /**
+   * Desenha lua caso exista
+   */
   if (temLua == true) 
   {
-    desenhaLua(x,y,deltaTempo);
+    desenhaLua(x,z,deltaTempo);
   }
 
   glNormal3f(0,0,1);
@@ -148,9 +172,9 @@ void Planeta::setOrbita(Orbita* o)
 }
 
 
-void Planeta::loadTexture(const char* filename)
+void Planeta::carregaTextura(const char* filename)
 {
-  this->texture = Textura::loadTexture(filename);
+  this->texture = Textura::carregaTextura(filename);
 }
 
 void Planeta::setDesenharOrbita(bool b)

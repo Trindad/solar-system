@@ -5,6 +5,7 @@
 class Anel
 {
 public:
+	//construtor da classe, recebe raio interno e externo
 	Anel(GLdouble,GLdouble);
 	~Anel();
 	void desenha(GLfloat *, float);
@@ -13,7 +14,7 @@ public:
 	void setTemOrbita(bool);
 	void setTemRotacao(bool);
 	void setOrbita(Orbita*);
-	void loadTexture(const char*);
+	void carregaTextura(const char*);
 	void desenhaTorus(double, double, int, int, int);
 
 	int temOrbita;

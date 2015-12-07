@@ -1,2 +1,2 @@
 all:
-	g++ *.cpp -lGL -lGLU -lglut -lGLEW -o main -g 
+	g++ *.cpp -lGL -lGLU -lglut -o main -g 

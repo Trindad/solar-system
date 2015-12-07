@@ -5,9 +5,9 @@ class Material
 public:
 	Material();
 	~Material();
-  void aplica();
+ 	void aplica();
 
-	string nome;
+	string nome;//nome do objeto
 	Vector3 ka;//cor ambiente
 	Vector3 kd;//difuso
 	Vector3 ks;//especular

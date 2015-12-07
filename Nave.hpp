@@ -8,11 +8,11 @@ public:
 
   void desenha(Vector3, Vector3, Vector3, float);
   void init();
-  void carregaObjetos(const char* arquivo);
-  void leMateriais(const char* arquivo);
-  Vector3 rotacionaVetor(Vector3 u, Vector3 v, float graus);
-  vector<string> &split(const string &s, char delim, vector<string> &elems);
-  vector<string> split(const string &s, char delim);
+  void carregaObjetos(const char*);
+  void leMateriais(const char*);
+  Vector3 rotacionaVetor(Vector3, Vector3, float);
+  vector<string> &split(const string &s, char, vector<string> &);
+  vector<string> split(const string &s, char);
 
   vector<Objeto*> objetos;
   vector<Material*> materiais;

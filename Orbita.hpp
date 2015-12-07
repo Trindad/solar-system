@@ -6,13 +6,13 @@
 class Orbita
 {
 public:
-  Orbita(float g, Vector3 c, float r);
-  ~Orbita();
+	Orbita(float, Vector3, float);
+	~Orbita();
     Vector3 getCentro();
 	float getRaio();
 	GLfloat getRotacao();
-	void atualiza(float deltaTempo);
-  void desenha();
+	void atualiza(float);
+	void desenha();
 private:
 	float grausPorSegundo;//velocidade da rotação
 	Vector3 centro;//ponto de rotação
