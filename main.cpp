@@ -25,7 +25,7 @@ Galaxia galaxia(13000);//insere textura na galaxia
 Anel anelDeSaturno(80*ESCALA_PLANETAS, 300*ESCALA_PLANETAS);//anel de saturno entra com o raio interno e externo do torus
 float oldTimeSinceStart = 0;
 // Camera deus(Vector3(0.1,8000,0.1));
-Camera deus(Vector3(0,10000,0.1));
+Camera deus(Vector3(100,10000,0.1));
 Camera cameraNave(Vector3(1800,0,1800));
 bool modoDeus = true;
 
@@ -66,14 +66,6 @@ void init()
 	terra.setTemOrbita(true);
 	terra.setOrbita(new Orbita(29.79*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 189.6f + (((12742*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(terra);
-
-	// Planeta lua((((12742*1200)/1391900) * 0.4f)*ESCALA_PLANETAS,false);
-	// lua.setPosicao(Vector3(-2250,0,0));
-	// lua.setGrausPorSegundo(0);
-	// lua.setTemRotacao(false);
-	// lua.setTemOrbita(true);
-	// lua.setOrbita(new Orbita(15, terra.posicao, 20*ESCALA_PLANETAS));
-	// planetas.push_back(lua);
 
 	Planeta marte(((6760*1200)/1391900)*ESCALA_PLANETAS,false);
 	marte.setPosicao(Vector3(-1400 - 227.9f,0,0));

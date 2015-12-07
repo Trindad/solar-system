@@ -46,7 +46,7 @@ void Camera::zoom(int pos, int x, int z)
 		this->lookAt.f[2] = -5000;
 	}
 
-	this->posicao.f[0] = this->lookAt.f[0] + 1;
+	this->posicao.f[0] = this->lookAt.f[0] + 100;
 	this->posicao.f[2] = this->lookAt.f[2] + 1;
 }
 
