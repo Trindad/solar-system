@@ -50,21 +50,21 @@ void Orbita::desenha()
 
    float degInRad = PI/180.0f;
 
-   for(i = 0; i < 360;i++)
-   {
-      float rad = i*(PI/180.0f);
-      glPushMatrix();
-      glTranslatef(raio*cos(rad), 0, raio*sin(rad));
-      glutWireCube(2);
-      glPopMatrix();
-   }
-   
-   // for (int i=0; i<=360; i++) {
+   // for(i = 0; i < 360;i++)
+   // {
+   //    float rad = i*(PI/180.0f);
    //    glPushMatrix();
-   //    glTranslatef((float)cos(i*PI/180.0f)*raio, 0,(float)sin(i*PI/180.0f)*raio*1.5f);
+   //    glTranslatef(raio*cos(rad), 0, raio*sin(rad));
    //    glutWireCube(2);
    //    glPopMatrix();
    // }
+   
+   for (int i = 0; i <= 360; i++) {
+      glPushMatrix();
+      glTranslatef((float)cos(i*PI/180.0f)*raio, 0,(float)sin(i*PI/180.0f)*raio*1.5f);
+      glutWireCube(2);
+      glPopMatrix();
+   }
 
    glEnable(GL_LIGHTING);
 }

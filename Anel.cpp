@@ -36,9 +36,12 @@ void Anel::desenha( GLfloat *scale,float deltaTempo)
   if (temOrbita)
   {
     this->orbita->atualiza(deltaTempo);
-    glRotatef(this->orbita->getRotacao(), 0, 1, 0);
-    glTranslatef(this->orbita->getCentro().f[0] - this->orbita->getRaio(),posicao.f[1],posicao.f[2]);
-  } else
+    // glRotatef(this->orbita->getRotacao(), 0, 1, 0);
+    float x = this->orbita->getRaio() * cos(this->orbita->getRotacao() / 180.0 * PI);
+    float z = this->orbita->getRaio() * sin(this->orbita->getRotacao() / 180.0 * PI)*1.5f;
+    glTranslatef(x,0,z);
+  } 
+  else
   {
     glTranslatef(posicao.f[0],posicao.f[1],posicao.f[2]);
   }

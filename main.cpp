@@ -40,56 +40,56 @@ void init()
 	 * Inserindo o tamanho, posição
 	 * e velocidade de rotação se rotacionar
 	 */
-	Planeta sol(1200);//tamanho real 1391900 km (diam)
+	Planeta sol(1200,false);//tamanho real 1391900 km (diam)
 	sol.setPosicao(Vector3(0,0,0));
 	sol.setTemRotacao(false);
 	sol.setTemOrbita(false);
 	planetas.push_back(sol);
 
-	Planeta mercurio( ((4866*1200)/1391900)*ESCALA_PLANETAS);
+	Planeta mercurio( ((4866*1200)/1391900)*ESCALA_PLANETAS,false);
 	mercurio.setPosicao(Vector3(-1400 - 57.9f,0,0));
 	mercurio.setGrausPorSegundo(40);
 	mercurio.setTemOrbita(true);
 	mercurio.setOrbita(new Orbita(47.89*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 57.9f + (((4866*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(mercurio);
 
-	Planeta venus(((12106*1200)/1391900)*ESCALA_PLANETAS);
+	Planeta venus(((12106*1200)/1391900)*ESCALA_PLANETAS,false);
 	venus.setPosicao(Vector3(-1400 - 108.2f,0,0));
 	venus.setGrausPorSegundo(-20);
 	venus.setTemOrbita(true);
 	venus.setOrbita(new Orbita(35.03*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 118.2f + (((12106*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(venus);
 
-	Planeta terra(((12742*1200)/1391900)*ESCALA_PLANETAS);
+	Planeta terra(((12742*1200)/1391900)*ESCALA_PLANETAS,true);
 	terra.setPosicao(Vector3(-1400 - 149.6f,0,0));
-	terra.setGrausPorSegundo(110);
+	terra.setGrausPorSegundo(20);
 	terra.setTemOrbita(true);
 	terra.setOrbita(new Orbita(29.79*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 189.6f + (((12742*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(terra);
 
-	Planeta lua((((12742*1200)/1391900) * 0.4)*ESCALA_PLANETAS);
-	lua.setPosicao(Vector3(-2250,0,0));
-	lua.setGrausPorSegundo(0);
-	lua.setTemRotacao(false);
-	lua.setTemOrbita(true);
-	lua.setOrbita(new Orbita(15, terra.posicao, 20*ESCALA_PLANETAS));
-	planetas.push_back(lua);
+	// Planeta lua((((12742*1200)/1391900) * 0.4f)*ESCALA_PLANETAS,false);
+	// lua.setPosicao(Vector3(-2250,0,0));
+	// lua.setGrausPorSegundo(0);
+	// lua.setTemRotacao(false);
+	// lua.setTemOrbita(true);
+	// lua.setOrbita(new Orbita(15, terra.posicao, 20*ESCALA_PLANETAS));
+	// planetas.push_back(lua);
 
-	Planeta marte(((6760*1200)/1391900)*ESCALA_PLANETAS);
+	Planeta marte(((6760*1200)/1391900)*ESCALA_PLANETAS,false);
 	marte.setPosicao(Vector3(-1400 - 227.9f,0,0));
 	marte.setGrausPorSegundo(95);
 	marte.setTemOrbita(true);
 	marte.setOrbita(new Orbita(24.13*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 297.9f + (((6760*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(marte);
 
-	Planeta jupiter(((142984*1200)/1391900)*ESCALA_PLANETAS);
+	Planeta jupiter(((142984*1200)/1391900)*ESCALA_PLANETAS,false);
 	jupiter.setPosicao(Vector3(-1400 - 778.3f,0,0));
 	jupiter.setGrausPorSegundo(190);
 	jupiter.setTemOrbita(true);
 	jupiter.setOrbita(new Orbita(13.6*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 778.3f + (((142984*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(jupiter);
 
-	Planeta saturno(((116438*1200)/1391900)*ESCALA_PLANETAS);
+	Planeta saturno(((116438*1200)/1391900)*ESCALA_PLANETAS,false);
 	saturno.setPosicao(Vector3(-1400 - 1427.9f,0,0));
 	saturno.setGrausPorSegundo(190);
 	saturno.setTemOrbita(true);//
@@ -98,17 +98,17 @@ void init()
 
 	anelDeSaturno.setPosicao(Vector3(-1400 - 1427.9f,0,0));
 	anelDeSaturno.setGrausPorSegundo(0);
-	anelDeSaturno.setTemOrbita(true);//142700*orbita
+	anelDeSaturno.setTemOrbita(true);
 	anelDeSaturno.setOrbita(new Orbita(9.64*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 1427.9f + (((116438*1200)/1391900)*ESCALA_PLANETAS) + 300));
 
-	Planeta uranus(((46940*1200)/1391900)*ESCALA_PLANETAS);
+	Planeta uranus(((46940*1200)/1391900)*ESCALA_PLANETAS,false);
 	uranus.setPosicao(Vector3(-1400 - 2871.9f,0,0));
 	uranus.setGrausPorSegundo(-150);
 	uranus.setTemOrbita(true);
 	uranus.setOrbita(new Orbita(6.81*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 2871.9f + (((46940*1200)/1391900)*ESCALA_PLANETAS) + 300));
 	planetas.push_back(uranus);
 
-	Planeta netuno(((45432*1200)/1391900)*ESCALA_PLANETAS);
+	Planeta netuno(((45432*1200)/1391900)*ESCALA_PLANETAS,false);
 	netuno.setPosicao(Vector3(-1400 - 4497.9f,0,0));
 	netuno.setGrausPorSegundo(140);
 	netuno.setTemOrbita(true);
@@ -157,12 +157,12 @@ void init()
   	planetas[1].loadTexture("texture_mercury.jpg");//adiciona textura para mercurio
 	planetas[2].loadTexture("texture_venus_surface.jpg");//adiciona textura para venus
 	planetas[3].loadTexture("texture_earth_clouds.jpg");//adiciona textura para terra
-	planetas[4].loadTexture("texture_moon.jpg");//adiciona textura para lua
-	planetas[5].loadTexture("texture_mars.jpg");//adiciona textura para marte
-	planetas[6].loadTexture("texture_jupiter.jpg");//adiciona textura para jupiter
-	planetas[7].loadTexture("texture_saturn.jpg");//adiciona textura para saturno
-	planetas[8].loadTexture("texture_uranus.jpg");//adiciona textura para uranu
-	planetas[9].loadTexture("texture_neptune.jpg");//adiciona textura para Neturno
+	// planetas[4].loadTexture("texture_moon.jpg");//adiciona textura para lua
+	planetas[4].loadTexture("texture_mars.jpg");//adiciona textura para marte
+	planetas[5].loadTexture("texture_jupiter.jpg");//adiciona textura para jupiter
+	planetas[6].loadTexture("texture_saturn.jpg");//adiciona textura para saturno
+	planetas[7].loadTexture("texture_uranus.jpg");//adiciona textura para uranu
+	planetas[8].loadTexture("texture_neptune.jpg");//adiciona textura para Neturno
 	anelDeSaturno.loadTexture("texture_saturn_ring.png");//anel de saturno
 	galaxia.loadTexture("large_medium_to_low_density_starfield_5400x3600_by_garryts-d7tni3c.jpg");//adiciona textura a galaxia
 }
@@ -202,7 +202,7 @@ void display(void)
 
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
-		planetas[i].setDesenharOrbita(i != 0 && i != 4);
+		planetas[i].setDesenharOrbita(i != 0);
 
 		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 

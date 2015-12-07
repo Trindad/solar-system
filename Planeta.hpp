@@ -5,7 +5,7 @@
 class Planeta
 {
 public:
-  Planeta(int raio);
+  Planeta(int raio, bool);
   ~Planeta();
 
   void desenha(float);
@@ -17,6 +17,7 @@ public:
   void setDesenharOrbita(bool);
   void setOrbita(Orbita*);
   void loadTexture(const char*);
+  void desenhaLua(float,float,float);
 
   int raio;
   int temOrbita;
@@ -27,6 +28,10 @@ public:
   Vector3 posicao;
   GLfloat grausPorSegundo;
   GLuint texture;
+  bool temLua;
+  GLuint texturaLua;
+  float orbita_lua;
+  float rotacao_lua;
 };
 
 #endif
