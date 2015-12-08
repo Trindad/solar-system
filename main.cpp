@@ -172,7 +172,7 @@ void display(void)
 	glLoadIdentity();
 
 	/**
-	 * Verifica modulo de uso da câmera 
+	 * Verifica modulo de uso da câmera
 	 */
 	if (modoDeus) {
 		deus.desenha();
@@ -208,7 +208,7 @@ void display(void)
 		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0.0f);
 
 		//planetas
-		if (i > 0) 
+		if (i > 0)
 		{
 			GLfloat di[] = {0.9f, 0.9f, 0.9f, 1.0f};
 			GLfloat ai[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -222,15 +222,9 @@ void display(void)
 
 			planetas[i].desenha(deltaTime);
 
-			//Configurações do anel
-			if (i == 6)
-			{
-				GLfloat confAnel[] = {0.3f,0.3f,0.03f};//escala
-				anelDeSaturno.desenha(confAnel,deltaTime);
-			}
-		} 
+		}
 		//sol
-		else 
+		else
 		{
 			GLfloat di[] = {1.5f, 1.5f, 1.5f, 0.9f};
 			GLfloat ai[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -250,6 +244,9 @@ void display(void)
 	glDisable(GL_LIGHTING);
 	galaxia.desenha();
 	glEnable(GL_LIGHTING);
+
+	GLfloat confAnel[] = {0.3f,0.3f,0.03f};//escala
+	anelDeSaturno.desenha(confAnel,deltaTime);
 
 	glPushMatrix();
 	nave.desenha(cameraNave.posicao, cameraNave.dir, cameraNave.up,deltaTime);
@@ -353,8 +350,8 @@ void specialKeyboard(int key, int x, int y)
 {
 	if (modoDeus) {
 		return;
-	} 
-	else 
+	}
+	else
 	{
 		switch(key) {
 			case GLUT_KEY_UP:

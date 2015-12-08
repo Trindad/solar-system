@@ -11,7 +11,7 @@ Anel::Anel(GLdouble inner,GLdouble out)
 Anel::~Anel(){}
 
 /**
- * desenha torus e faz a translação e rotação necessária, 
+ * desenha torus e faz a translação e rotação necessária,
  * recebe escala e milissegundos desde o último frame
  */
 void Anel::desenha( GLfloat *scale,float deltaTempo)
@@ -19,12 +19,12 @@ void Anel::desenha( GLfloat *scale,float deltaTempo)
   /**
    * Insere as características do material
    * Como o material irá refletir a luz:
-   *   difusa, especular, quanto vai emitir, e 
+   *   difusa, especular, quanto vai emitir, e
    *   ambiente
    */
   GLfloat di[] = {0.9f, 0.9f, 0.9f, 1.0f};
   GLfloat ai[] = {1, 1, 1, 1};
-  GLfloat em[] = {0,0,0,1.0f};
+  GLfloat em[] = {0,0,0,0.1f};
   GLfloat sp[] = {0,0,0,1.0f};
 
   glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, em);
@@ -32,7 +32,7 @@ void Anel::desenha( GLfloat *scale,float deltaTempo)
   glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ai);
   glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sp);
   glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0.0f);
-  
+
   rotacao += deltaTempo * grausPorSegundo;//atualiza a rotação sobre si mesmo
 
   while (rotacao > 360.0f)
@@ -54,7 +54,7 @@ void Anel::desenha( GLfloat *scale,float deltaTempo)
     float x = this->orbita->getRaio() * cos(this->orbita->getRotacao() / 180.0 * PI);
     float z = this->orbita->getRaio() * sin(this->orbita->getRotacao() / 180.0 * PI)*1.5f;
     glTranslatef(x,0,z);
-  } 
+  }
   else
   {
     glTranslatef(posicao.f[0],posicao.f[1],posicao.f[2]);
@@ -65,9 +65,9 @@ void Anel::desenha( GLfloat *scale,float deltaTempo)
     glRotatef(rotacao, 0, 1, 0);
   }
 
-  glRotatef(10, 1, 0, 0);//rotação para inclinar o anel 
-  glRotatef(90, 1, 0, 0);//arrumar textura 
-	glScalef(scale[0], scale[1], scale[2]);//escala 
+  glRotatef(10, 1, 0, 0);//rotação para inclinar o anel
+  glRotatef(90, 1, 0, 0);//arrumar textura
+	glScalef(scale[0], scale[1], scale[2]);//escala
 	desenhaTorus(this->innerRadius, this->outerRadius,100, 100, this->texture);
   glPopMatrix();
 
@@ -110,7 +110,7 @@ void Anel::carregaTextura(const char* filename)
 }
 
 /**
- * Desenha um torus 
+ * Desenha um torus
  * Parâmetros:
  *   r = raio interno
  *   c = raio externo
