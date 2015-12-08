@@ -2,8 +2,8 @@
  * *********************************************************
  * Trabalho final:
  *
- * Descrição: Desenhar bandeira de Wallis e Fortuna e bandeira de Israel
- * por malha de triângulos, usando simulação de tecido
+ * Descrição: Sistemas solar contendo os principais planetas
+ * 			e o Sol, com duas cameras diferentes.
  *
  * Alunos: Silvana Trindade e Maurício André Cinelli
  * *********************************************************
@@ -16,18 +16,17 @@
 #include "Anel.hpp"
 #include "Nave.hpp"
 
- #define ESCALA_PLANETAS 2
+ #define ESCALA_PLANETAS 2//escala dos planetas aumenta 2 vezes em relação a proporção real
  #define VELOCIDADE_ORBITAL 0.5f
 
 vector<Planeta> planetas;
 Galaxia galaxia(13000);//insere textura na galaxia
 Anel anelDeSaturno(80*ESCALA_PLANETAS, 300*ESCALA_PLANETAS);//anel de saturno entra com o raio interno e externo do torus
 float oldTimeSinceStart = 0;
+//Inicializa posições das câmeras
 Camera deus(Vector3(100,10000,0.1));
 Camera cameraNave(Vector3(1800,0,1800));
-bool modoDeus = true;
-
-float orbita = 1.0f/10000.0f;
+bool modoDeus = true;//câmera padrão
 
 Nave nave;
 
@@ -113,6 +112,11 @@ void init()
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
+	/**
+	 * Entra em outro modelo de luz, e seta a luz ambiente
+	 * global padrão, fazendo com que os planetas fiquem pretos
+	 * quando não há luz.
+	 */
 	float vAmbientLightBright[] = {0.05f, 0.05f, 0.05f, 1.0f};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, vAmbientLightBright);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,GL_TRUE);
@@ -178,7 +182,10 @@ void display(void)
 		cameraNave.desenha();
 	}
 
-	GLfloat lightAmbient1[4] = {0.0f,0.0f,0.0f,1};
+	/**
+	 * Configuração da luz
+	 */
+	GLfloat lightAmbient1[4] = {0.0f,0.0f,0.0f,1.0f};
 	GLfloat lightPos1[4] = {1.0f,1.0f,-500.0f,1};
 	GLfloat lightDiffuse1[4] = {1.0f,1.0f,1.0f,1.0f};
 
@@ -191,16 +198,20 @@ void display(void)
 	float deltaTime = (timeSinceStart - oldTimeSinceStart) / 1000.0f;
   	oldTimeSinceStart = timeSinceStart;
 
-
+  	/**
+  	 * Desenha os planetas e o Sol
+  	 */
 	for (int i = 0; i < (int) planetas.size(); i++)
 	{
-		planetas[i].setDesenharOrbita(i != 0);
+		planetas[i].setDesenharOrbita(i != 0);//desenhar órbita se não for o Sol
 
-		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0);
+		glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 0.0f);
 
-		if (i > 0) {
-			GLfloat di[] = {0.9, 0.9, 0.9, 1.0f};
-			GLfloat ai[] = {1, 1, 1, 1};
+		//planetas
+		if (i > 0) 
+		{
+			GLfloat di[] = {0.9f, 0.9f, 0.9f, 1.0f};
+			GLfloat ai[] = {1.0f, 1.0f, 1.0f, 1.0f};
 			GLfloat em[] = {0,0,0,0};
 			GLfloat sp[] = {0,0,0,1.0f};
 
@@ -210,7 +221,15 @@ void display(void)
 			glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, sp);
 
 			planetas[i].desenha(deltaTime);
+
+			//Configurações do anel
+			if (i == 6)
+			{
+				GLfloat confAnel[] = {0.3f,0.3f,0.03f};//escala
+				anelDeSaturno.desenha(confAnel,deltaTime);
+			}
 		} 
+		//sol
 		else 
 		{
 			GLfloat di[] = {1.5f, 1.5f, 1.5f, 0.9f};
@@ -228,14 +247,9 @@ void display(void)
 		}
 	}
 
-
 	glDisable(GL_LIGHTING);
 	galaxia.desenha();
 	glEnable(GL_LIGHTING);
-
-	//Configurações do anel
-	GLfloat confAnel[] = {0.3f,0.3f,0.03f};//escala
-	anelDeSaturno.desenha(confAnel,deltaTime);
 
 	glPushMatrix();
 	nave.desenha(cameraNave.posicao, cameraNave.dir, cameraNave.up,deltaTime);
@@ -311,7 +325,7 @@ void keyboard(unsigned char key, int x, int y)
 	{
 		modoDeus = !modoDeus;
 	}
-	else
+	else if(!modoDeus)
 	{
 		switch(key) {
 			case 115://para baixo
