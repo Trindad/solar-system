@@ -61,7 +61,7 @@ void init()
 	terra.setPosicao(Vector3(-1400 - 149.6f,0,0));
 	terra.setGrausPorSegundo(20);
 	terra.setTemOrbita(true);
-	terra.setOrbita(new Orbita(29.79*VELOCIDADE_ORBITAL, Vector3(0,0,0), 1400 + 189.6f + (((12742*1200)/1391900)*ESCALA_PLANETAS)));
+	terra.setOrbita(new Orbita(0, Vector3(0,0,0), 1400 + 189.6f + (((12742*1200)/1391900)*ESCALA_PLANETAS)));
 	planetas.push_back(terra);
 
 	Planeta marte(((6760*1200)/1391900)*ESCALA_PLANETAS,false);
